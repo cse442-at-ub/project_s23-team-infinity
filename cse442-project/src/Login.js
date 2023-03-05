@@ -197,10 +197,11 @@ const Loginin = () => {
       <form onSubmit={submitForm}>
 	    <div>
         <Title>CSE442-TeamInfinity
-          <Button3>
-              Contact us
-          </Button3>
+          
         </Title>
+        <Button3>
+              Contact us
+        </Button3>
 
         <Rectangle />
 
@@ -220,7 +221,7 @@ const Loginin = () => {
           <Checkbox />
             <Label3>Remeber me</Label3>
             <Label4>
-            <Link to ="/recovery" >Forgot password?</Link>
+            <Link to ="/recovery" style={{color:'red'}}>Forgot password?</Link>
             </Label4>
         </Description>
 
