@@ -184,6 +184,7 @@ const Loginin = () => {
 
     const handleChange=(e)=>{
         setUser({...user,[e.target.name]:e.target.value});
+        console.log(user)
     }
 
     const submitForm=(e)=>{
