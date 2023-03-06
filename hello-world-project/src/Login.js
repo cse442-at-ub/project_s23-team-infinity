@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Image1 from './images/Login1.png';
+
 import {BrowserRouter as Router, Routes,Route,Link,useNavigate } from 'react-router-dom';
 
 
@@ -201,6 +202,7 @@ const Loginin = () => {
         <Title>CSE442-TeamInfinity
           
         </Title>
+        <body onload="getcookiedata()"></body>
         <Button3>
               Contact us
         </Button3>
@@ -222,9 +224,9 @@ const Loginin = () => {
         <Description>
           <Checkbox />
             <Label3>Remeber me</Label3>
-            <Input type="checkbox" name="rememberme" id="rememberme" onclick="setCookie()" ></Input>
+            <input type="checkbox" name="rememberme" id="rememberme" onClick={setCookie()}/>
             <Label4>
-            <Link to ="/recovery" style={{color:'red'}}>Forgot password?</Link>/**links page to fgt password page */
+            <Link to ="/recovery" style={{color:'red'}}>Forgot password?</Link>
             </Label4>
         </Description>
 
