@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Image1 from './images/Login1.png';
+import setCookie from './SetCookies'
+
 
 import {BrowserRouter as Router, Routes,Route,Link,useNavigate } from 'react-router-dom';
 
