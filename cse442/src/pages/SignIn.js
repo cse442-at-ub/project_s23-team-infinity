@@ -1,6 +1,9 @@
+//Sign In page
 import React from 'react';
 import styled from 'styled-components';
 import Image1 from './images/Login1.png';
+import { Link } from 'react-router-dom';
+
 
 const Title = styled.div`
   text-align: left;
@@ -9,35 +12,34 @@ const Title = styled.div`
   font-family: Myanmar Khyay;
   line-height: auto;
   color: #000000;
-  margin-top:1px;
 `;
 
 const Rectangle = styled.div`
-  border-radius: 10px;
-  height: 14px;
+  position:absolute;
+  border-radius:14px;
+  height: 1.5%;
   width: 100%;
   background-color: #acb9c5;
-  margin-top:-1px;
 `;
 
 const Login = styled.h1`
   font-size: 40px;
-  margin-top: 6rem;
-  margin-left:6rem;
+  margin-top: 11%;
+  margin-left:6.5%;
   text-align: left;
 `;
 
 const Description = styled.p`
   font-size: 15px;
-  margin-top: 1px;
- margin-left:6rem;
+  margin-top: 1%;
+ margin-left:6.5%;
   text-align: left;
 `;
 
 const Description2 = styled.p` //Dont'have an account?
   font-size: 15px;
-  margin-top: 1px;
- margin-left:10rem;
+  margin-top: 1%;
+ margin-left:11%;
   text-align: left;
 `;
 
@@ -47,8 +49,8 @@ const Input = styled.input`
   border-radius: 0.5rem;
   border: 1px solid gray;
   font-size: 20px;
-  margin-bottom: 1rem;
- margin-left:6rem;
+  margin-bottom: 1.5%;
+ margin-left:6.5%;
 
   &:focus {
     outline: none;
@@ -60,31 +62,31 @@ const Input = styled.input`
 const Label1 = styled.label`//Email//Username
   font-size: 20px;
   font-weight: bold;
-  margin-top:4rem;
-  margin-bottom: 0.5rem;
+  margin-top:4.2%;
+  margin-bottom: 0.5%;
   display:flex;
- margin-left:6rem;
+ margin-left:6.5%;
 `;
 
 const Label2 = styled.label`//Password
   font-size: 20px;
   font-weight: bold;
-  margin-top:1rem;
-  margin-bottom: 0.5rem;
+  margin-top:1%;
+  margin-bottom: 0.5%;
   display:flex;
- margin-left:6rem;
+ margin-left:6.5%;
 `;
 
 const Label3 = styled.label`//Remember me
   font-size: 15px;
-  margin-right:20px;
- margin-top:4px;
+  margin-right:20%;
+ margin-top:0.2%;
  position: absolute;
 `;
 const Label4 = styled.label` //Forgot Password, not function currently.
   font-size: 15px;
-  margin-left:320px;
-  margin-top:4px;
+  margin-left:21.5%;
+  margin-top:0.2%;
  position: absolute;
   color: red;
 `;
@@ -96,8 +98,8 @@ const Label5 = styled.label` //Login button
 
 const Label6 = styled.label` //Sign up
   font-size: 14px;
-  margin-left:11px;
-  margin-top:1px;
+  margin-left:6%;
+  margin-top:0.1%;
  position: absolute;
   color: blue;
 `;
@@ -128,8 +130,8 @@ const Checkbox = styled.input.attrs({ type: "checkbox" })`//Check box
 `;
 
 const Button2 = styled.button` //Login button
-  margin-left:10rem;
-  margin-top:2rem;
+  margin-left:11%;
+  margin-top:2.1%;
   background-color: #acb9c5;
   color: #fff;
   border: 1px solid #000000;
@@ -154,15 +156,15 @@ const Button2 = styled.button` //Login button
 `;
 
 const Button3 = styled.button` //Top right contact us
-
-  margin-left:72%;
+  margin-left:55%;
   background-color: #acb9c5;
   color: #fff;
   border: None;
   cursor: pointer;
-  height: 40px;
-  width: 200px;
-  font-size:25px;
+  height: 3.5%;
+  width: 22%;
+  font-size:100%;
+  position:absolute;
 
   &:hover {
     background-color: gray;
@@ -180,23 +182,23 @@ const Button3 = styled.button` //Top right contact us
 `;
 
 const StyledImg = styled.img` //right pitcure
-  width: 50%;
+  width: 52%;
   height: 93%;
   position: absolute;
-  top: 53.2%;
-  left: 74.5%;
-  transform: translate(-50%, -50%);
+  margin-top: 1.5%;
+  left: 47.5%;
 `;
 
-const  Loginin: React.VFC = () => {
+const  Loginin = () => {
     return (
 	<div>
             <Title>CSE442-TeamInfinity
-		<Button3>
+              <Button3>
 		    Contact us
-		</Button3>
+	      </Button3>
 	    </Title>
 	    <Rectangle />
+	    <StyledImg src= {Image1} />
 	    <Login>Login</Login>
 	    <Description>
 		Welcome! Please login.
@@ -217,14 +219,13 @@ const  Loginin: React.VFC = () => {
 	    </Button2>
 	    <Description2>
 		Don't have an account?
-		<Label6> Sign Up</Label6>
+		<Label6>
+		    <Link to="/signup">Sign Up</Link>
+		</Label6>
 	    </Description2>
-	    <StyledImg src={Image1} />
 	   
 	</div>
   )
 }
 
 export default Loginin;
-
-
