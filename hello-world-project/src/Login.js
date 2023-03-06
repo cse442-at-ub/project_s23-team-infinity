@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Image1 from './images/Login1.png';
 import {BrowserRouter as Router, Routes,Route,Link,useNavigate } from 'react-router-dom';
 
+
 const Title = styled.div`
   text-align: left;
   vertical-align: top;
@@ -221,8 +222,9 @@ const Loginin = () => {
         <Description>
           <Checkbox />
             <Label3>Remeber me</Label3>
+            <Input type="checkbox" name="rememberme" id="rememberme" onclick="setCookie()" ></Input>
             <Label4>
-            <Link to ="/recovery" style={{color:'red'}}>Forgot password?</Link>
+            <Link to ="/recovery" style={{color:'red'}}>Forgot password?</Link>/**links page to fgt password page */
             </Label4>
         </Description>
 
