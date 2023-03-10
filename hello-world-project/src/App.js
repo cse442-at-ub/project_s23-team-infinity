@@ -12,7 +12,7 @@ import {BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 function Remember () {
   return (
     <Router>
-      <div className="remember-me">
+      <div className="rememberme">
         <Routes>
           <Route path="/" element={<Loginin/>} />
           <Route path="/recovery" element={<Recovery/>} />
