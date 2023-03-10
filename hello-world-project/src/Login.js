@@ -2,9 +2,12 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Image1 from './images/Login1.png';
 import setCookie from './SetCookies'
-
+import { useCookies } from 'react-cookie'
+import checkCookie from './CheckCookie';
 
 import {BrowserRouter as Router, Routes,Route,Link,useNavigate } from 'react-router-dom';
+
+
 
 
 const Title = styled.div`
@@ -106,7 +109,7 @@ const Label6 = styled.label` //Sign up
   color: blue;
 `;
 
-const Checkbox = styled.input.attrs({ type: "checkbox" })`//Check box
+const Checkbox = styled.input.attrs({ type: "checkbox" })`//Check box   - for the Remember me button
   appearance: none;
   width: 1.2rem;
   height: 1.2rem;
@@ -114,14 +117,14 @@ const Checkbox = styled.input.attrs({ type: "checkbox" })`//Check box
   background-color:#d9d9d9;
   position: relative;
  
-  &:checked {
+  &:checked {           //what box should look like when checked
   width: 1.2rem;
   height: 1.2rem;
   border: 1px solid gray;
   border-radius: 0.25rem;
   background-color:#d9d9d9;
   &::after {
-      content: "✔";
+      content: "✔";            //add check
       position: absolute;
       font-size: 1.1rem;
       color: red;
@@ -198,6 +201,7 @@ const Loginin = () => {
         password:user.password
       }
     }
+    
     return (
       <form onSubmit={submitForm}>
 	    <div>
@@ -226,7 +230,7 @@ const Loginin = () => {
         <Description>
           <Checkbox />
             <Label3>Remeber me</Label3>
-            <input type="checkbox" name="rememberme" id="rememberme" onClick={setCookie()}/>
+            <input type="checkbox" name="rememberme" id="rememberme" onChange={checkCookie()}/>
             <Label4>
             <Link to ="/recovery" style={{color:'red'}}>Forgot password?</Link>
             </Label4>
