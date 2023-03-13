@@ -4,6 +4,7 @@ import Image1 from './images/Login1.png';
 import setCookie from './SetCookies'
 import { useCookies } from 'react-cookie'
 import checkCookie from './CheckCookie';
+import getCookie from './GetCookieData';
 
 import {BrowserRouter as Router, Routes,Route,Link,useNavigate } from 'react-router-dom';
 
@@ -229,8 +230,8 @@ const Loginin = () => {
 
         <Description>
           <Checkbox />
-            <Label3>Remeber me</Label3>
-            <input type="checkbox" name="rememberme" id="rememberme" onChange={checkCookie()}/>
+            <Label3 onChange={setCookie(getCookie)}>Remeber me </Label3>
+             
             <Label4>
             <Link to ="/recovery" style={{color:'red'}}>Forgot password?</Link>
             </Label4>
