@@ -74,7 +74,8 @@ import cookie from "react-cookie";
    function setCookie(cname,cvalue,exdays) {
     var d = new Date();
     d.setTime(d.getTime() + (exdays*24*60*60*1000));
-    var expires = "expires=" + d.toGMTString();
+    //var expires = "expires=" + d.toGMTString();//maxage="in seconds" - probs need this as it's a bit more flexible
+    var expires = "Max-Age=3600";
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
   
