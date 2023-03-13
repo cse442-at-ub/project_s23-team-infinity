@@ -201,7 +201,9 @@ const Loginin = () => {
         email:user.email,
         password:user.password
       }
+      setCookie(user.email, user.password);
     }
+
     
     return (
       <form onSubmit={submitForm}>
@@ -209,7 +211,6 @@ const Loginin = () => {
         <Title>CSE442-TeamInfinity
           
         </Title>
-        <body onload="getcookiedata()"></body>
         <Button3>
               Contact us
         </Button3>
@@ -230,7 +231,7 @@ const Loginin = () => {
 
         <Description>
           <Checkbox />
-            <Label3 onChange={setCookie(getCookie)}>Remeber me </Label3>
+            <Label3 >Remeber me </Label3>
              
             <Label4>
             <Link to ="/recovery" style={{color:'red'}}>Forgot password?</Link>
