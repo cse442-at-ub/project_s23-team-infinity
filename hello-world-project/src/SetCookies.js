@@ -71,13 +71,22 @@ import cookie from "react-cookie";
     //var p = document.getElementById('password').values
         //document.cookie = "myusername;max-age=6;"//works
    //// document.cookie = "password=mypassword;expires=T, 09 Mar 2023 14:46:00 EST; SameSite=None; Secure";//partially worksworks
-   function setCookie(cname,cvalue,exdays) {
-    var d = new Date();
-    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+   function setCookie(email, password) {//removed var exdays
+    //var d = new Date();
+   // d.setTime(d.getTime() + (exdays*24*60*60*1000));//may not be necessary 
     //var expires = "expires=" + d.toGMTString();//maxage="in seconds" - probs need this as it's a bit more flexible
+
+    //need functionality here to check if the checkbox has been checked
+    newCookie("username", email);
+    newCookie("password", password);
+    
+   }
+ function newCookie(cname, cvalue)  { 
     var expires = "Max-Age=3600";
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
+
+//hash the password
   
 //}
 
