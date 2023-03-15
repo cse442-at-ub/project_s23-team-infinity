@@ -6,6 +6,7 @@ import Recovery from './Recovery'
 import Verify from './Verify'
 import Reset from './Reset';
 import Home from './Home';
+import SignUp from './SignUp';
 import {BrowserRouter as Router, Routes, Route } from 'react-router-dom'; 
 
 
@@ -19,6 +20,7 @@ function Login() {
       <Route path="/verify" element={<Verify/>}/>
       <Route path="/reset"element={<Reset/>}/>
       <Route path="/home" element={<Home/>}/>
+      <Route path="/signup" element={<SignUp/>}/>
     </Routes>
   </div>
     </Router>

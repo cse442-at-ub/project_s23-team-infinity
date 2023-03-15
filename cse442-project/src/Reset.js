@@ -3,21 +3,29 @@ import { useState } from 'react';
 import "./css/Reset.css";
 import rectangle from "./images/rectangle.svg";
 import num from "./images/num.png";
+import axios from 'axios';
 import {BrowserRouter as Router, Routes,Route,Link,useNavigate } from 'react-router-dom';
 
 const Reset = () => {
-  const[user,setUser] = useState({new_password:'',confirm_password:''})
+  const[newpassword,setNewPassowrd] = useState('')
+  const[confirmed,setConfirmedPassword] = useState('')
+  const[username_email,setUsername] = useState('')
+  const navigate = useNavigate();
 
-  const handleChange=(e)=>{
-      setUser({...user,[e.target.name]:e.target.value});
-      console.log(user)
-  }
+  const handleSubmit = () =>{
+    if (newpassword !== confirmed){
+      alert("Please enter the same password")
+    }else if(username_email.length === 0){
+      alert("Please enter your username/email")
+    }else{
+      const url = "http://localhost/PHP/server.php" //change the path here to the php file location
+      let Data = new FormData();
+      Data.append('newpassword', newpassword);
+      Data.append('username/email', username_email);
+      axios.post(url, Data).then(response=> 
+        alert(response.data)).catch(error=> alert(error));
+      navigate('/')
 
-  const submitForm=(e)=>{
-    e.preventDefault();
-    const sendData = {
-      new_password:user.new_password,
-      confirm_password:user.confirm_password
     }
   }
   return (
@@ -31,11 +39,13 @@ const Reset = () => {
       <img className="rectangle-8-reset" src={rectangle} />
       <img className="num-3728048-200-1" src={num} />
       <span className="reset-your-new-passw">Reset your new password</span>
+      <span className="password-reset">Username/Email</span>
+      <input className="rectangle-1-reset" type="text" name="username/email" onChange={(e) => setUsername(e.target.value)}/>
       <span className="password-reset">Password</span>
-      <input className="rectangle-1-reset" type="text" name="new_password" onChange={handleChange} value={user.new_password}/>
+      <input className="rectangle-1-reset" type="text" name="new_password" onChange={(e) => setNewPassowrd(e.target.value)}/>
       <span className="confirm-reset">Confirm Password</span>
-      <input className="rectangle-20-reset" type="text" name="confirm_password" onChange={handleChange} value={user.confirm_password}/>
-      <Link to="/" style={{textDecoration: 'none',color:'white'}}className="rectangle-2-reset">Reset</Link>
+      <input className="rectangle-20-reset" type="text" name="confirm_password" onChange={(e) => setConfirmedPassword(e.target.value)}/>
+      <input type="button" className="rectangle-2-reset" value="Reset" onClick={handleSubmit}/>
     </div>
   );
 };

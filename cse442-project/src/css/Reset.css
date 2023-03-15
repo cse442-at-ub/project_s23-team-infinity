@@ -57,16 +57,14 @@
     height: 13px;
     object-fit: cover;
     border-radius: 15px;
-    margin-bottom: 37px;
   }
   
   .num-3728048-200-1 {
-    width: 128px;
-    height: 126px;
+    width: 100px;
+    height: 100px;
     object-fit: cover;
     background-position: center;
     background-size: cover;
-    margin-top: 20px;
   }
   
   .reset-your-new-passw {
@@ -76,13 +74,12 @@
   }
   
   .password-reset {
-    margin-top:1em;
     margin-bottom:0.5em;
   }
   
   .rectangle-1-reset, .rectangle-20-reset {
     color: #000;
-    width: 35%;
+    width: 30%;
     background-color: #fff;
     border: 1px solid #000;
     border-radius: 10px;
