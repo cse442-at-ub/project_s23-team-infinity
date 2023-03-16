@@ -1,7 +1,3 @@
-<form action="" method="post">
-Enter Email:<br>
-<input type=text name="email"><br><br>
-<input type=submit name="s"><br><br>
 <?php
 $hostname = "oceanus";
 $serverusername = "duncenzh";

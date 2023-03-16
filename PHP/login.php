@@ -1,9 +1,3 @@
-<form action="" method="post">
-Enter Email or Username: <br>
-<input type=text name="emailorusername"><br><br>
-Password: <br>
-<input type=password name="password"><br><br>
-<input type=submit name="s"><br><br>
 <?php
 function endsWith($string, $endString){
     $len = strlen($endString);

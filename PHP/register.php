@@ -1,14 +1,3 @@
-<form action="" method="post">
-Register here:<br><br>
-Email:<br>
-<input type=text name="email"><br><br>
-Username:<br>
-<input type=text name="username"><br><br>
-Password:<br>
-<input type=password name="password"><br><br>
-Retype Password:<br>
-<input type=password name="retypepassword"><br><br>
-<input type=submit name="s"><br><br>
 <?php
 function endsWith($string, $endString){
     $len = strlen($endString);
