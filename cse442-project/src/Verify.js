@@ -13,7 +13,7 @@ const Verify = () => {
     if (code.length === 0){
       alert("Please enter your code")
     }else{
-      const url = "http://localhost/PHP/server.php" //change the path here to the php file location
+      const url = "/CSE442-542/2023-Spring/cse-442ad/PHP/emailedcodecheck.php" //change the path here to the php file location
       let Data = new FormData();
       Data.append('code', code)
       axios.post(url, Data)

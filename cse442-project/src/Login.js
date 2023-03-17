@@ -1,7 +1,74 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Image1 from './images/Login1.png';
-import { Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
+const Loginin = () => {
+  const navigate = useNavigate();
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [rememberMe, setRememberMe] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+
+ // This handle the Login button
+  const handleLogin = async () => {
+    try {
+      const response = await axios.post('/CSE442-542/2023-Spring/cse-442ad/PHP/login.php', {
+        username,
+        password,
+      });
+
+      if (response.data.success) {
+        if (rememberMe) { //This is where remember me store the user data
+          localStorage.setItem('user', JSON.stringify(response.data.user));
+        }
+        navigate('/home');
+      } else {
+        setErrorMessage(response.data.message);
+      }
+    } catch (error) {
+      alert('Not connect to PHP');
+    }
+  };
+
+    // Web page elements
+  return (
+    <div>
+      <Title>
+        CSE442-TeamInfinity
+        <Button3>Contact us</Button3>
+      </Title>
+      <Rectangle />
+      <StyledImg src={Image1} />
+      <Login>Login</Login>
+      <Description>Welcome! Please login.</Description>
+      <Label1>Email/Username:</Label1>
+      <Input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+      <Label2>Password:</Label2>
+      <Input type="text" value={password} onChange={(e) => setPassword(e.target.value)} />
+      <Description>
+        <Checkbox onChange={(e) => setRememberMe(e.target.checked)} />
+        <Label3>Remeber me</Label3>
+        <Label4>
+          <Link to="/CSE442-542/2023-Spring/cse-442ad/recovery">Forgot password?</Link>
+        </Label4>
+      </Description>
+      <Button2 onClick={handleLogin}>
+        <Label5>Login</Label5>
+      </Button2>
+      {errorMessage && <p>{errorMessage}</p>}
+      <Description2>
+        Don't have an account?
+        <Label6>
+          <Link to="/CSE442-542/2023-Spring/cse-442ad/signup">Sign Up</Link>
+        </Label6>
+      </Description2>
+    </div>
+  );
+};
+
+
 
 
 const Title = styled.div`
@@ -178,42 +245,5 @@ const StyledImg = styled.img` //right pitcure
   margin-top: 1.5%;
   left: 47.5%;
 `;
-
-const  Loginin = () => {
-    return (
-	    <div>
-        <Title>CSE442-TeamInfinity
-        <Button3>
-		    Contact us
-	      </Button3>
-	      </Title>
-	      <Rectangle />
-	        <StyledImg src= {Image1} />
-	      <Login>Login</Login>
-	      <Description>Welcome! Please login.</Description>
-        <Label1>Email/Username:</Label1>
-        <Input type="text"></Input>
-        <Label2>Password:</Label2>
-        <Input type="text"></Input>
-        <Description>
-		    <Checkbox />
-	      <Label3>Remeber me</Label3>
-		    <Label4>
-          <Link to="/CSE442-542/2023-Spring/cse-442ad/recovery">Forgot password?</Link>
-          </Label4>
-        </Description>
-	      <Button2>
-		      <Label5>login</Label5>
-	      </Button2>
-	      <Description2>
-		    Don't have an account?
-		    <Label6>
-		      <Link to="/CSE442-542/2023-Spring/cse-442ad/signup">Sign Up</Link>
-		    </Label6>
-	    </Description2>
-	   
-	</div>
-  )
-}
 
 export default Loginin;

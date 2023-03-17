@@ -18,7 +18,7 @@ const Reset = () => {
     }else if(username_email.length === 0){
       alert("Please enter your username/email")
     }else{
-      const url = "http://localhost/PHP/server.php" //change the path here to the php file location
+      const url = "/CSE442-542/2023-Spring/cse-442ad/PHP/passwordchange.php" //change the path here to the php file location
       let Data = new FormData();
       Data.append('newpassword', newpassword);
       Data.append('username/email', username_email);
