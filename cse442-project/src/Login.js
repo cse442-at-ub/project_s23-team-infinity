@@ -199,7 +199,7 @@ const  Loginin = () => {
 		    <Checkbox />
 	      <Label3>Remeber me</Label3>
 		    <Label4>
-          <Link to="/recovery">Forgot password?</Link>
+          <Link to="/CSE442-542/2023-Spring/cse-442ad/recovery">Forgot password?</Link>
           </Label4>
         </Description>
 	      <Button2>
@@ -208,7 +208,7 @@ const  Loginin = () => {
 	      <Description2>
 		    Don't have an account?
 		    <Label6>
-		      <Link to="/signup">Sign Up</Link>
+		      <Link to="/CSE442-542/2023-Spring/cse-442ad/signup">Sign Up</Link>
 		    </Label6>
 	    </Description2>
 	   

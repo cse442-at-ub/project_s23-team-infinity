@@ -19,7 +19,7 @@ const Verify = () => {
       axios.post(url, Data)
       .then(response=>alert(response.data))
       .catch(error=> alert(error));
-      navigate('/reset')
+      navigate('/CSE442-542/2023-Spring/cse-442ad/reset')
     }
   }
   return (
@@ -27,7 +27,7 @@ const Verify = () => {
       <div className="flex-container-verify">
         <span className="cse-442-team-infinity-verify">CSE442-Team Infinity</span>
         <div className="sign_in_verify">
-        <Link to ="/" style={{textDecoration: 'none',color:'white'}}className="sign-in-verify">Sign in</Link>
+        <Link to ="/CSE442-542/2023-Spring/cse-442ad/" style={{textDecoration: 'none',color:'white'}}className="sign-in-verify">Sign in</Link>
         </div>
       </div>
       <img className="rectangle-verify" src={rectangle} />

@@ -15,12 +15,12 @@ function Login() {
 	<Router>
 	<div className="login-page">
     <Routes>
-      <Route path="/" element={<Loginin/>} />
-      <Route path="/recovery" element={<Recovery/>} />
-      <Route path="/verify" element={<Verify/>}/>``
-      <Route path="/reset"element={<Reset/>}/>
-      <Route path="/home" element={<Home/>}/>
-      <Route path="/signup" element={<SignUp/>}/>
+      <Route path="/CSE442-542/2023-Spring/cse-442ad/" element={<Loginin/>} />
+      <Route path="/CSE442-542/2023-Spring/cse-442ad/recovery" element={<Recovery/>} />
+      <Route path="/CSE442-542/2023-Spring/cse-442ad/verify" element={<Verify/>}/>``
+      <Route path="/CSE442-542/2023-Spring/cse-442ad/reset"element={<Reset/>}/>
+      <Route path="/CSE442-542/2023-Spring/cse-442ad/home" element={<Home/>}/>
+      <Route path="/CSE442-542/2023-Spring/cse-442ad/signup" element={<SignUp/>}/>
     </Routes>
   </div>
     </Router>

@@ -24,7 +24,7 @@ const Reset = () => {
       Data.append('username/email', username_email);
       axios.post(url, Data).then(response=> 
         alert(response.data)).catch(error=> alert(error));
-      navigate('/')
+      navigate('/CSE442-542/2023-Spring/cse-442ad/')
 
     }
   }
@@ -33,7 +33,7 @@ const Reset = () => {
       <div className="flex-container-reset">
         <span className="cse-442-team-infinity-reset">CSE442-Team Infinity</span>
         <div className="rectangle-19-reset">
-        <Link to ="/" style={{textDecoration: 'none',color:'white'}}className="sign-in-reset">Sign in</Link>
+        <Link to ="/CSE442-542/2023-Spring/cse-442ad/" style={{textDecoration: 'none',color:'white'}}className="sign-in-reset">Sign in</Link>
         </div>
       </div>
       <img className="rectangle-8-reset" src={rectangle} />

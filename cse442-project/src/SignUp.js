@@ -30,7 +30,7 @@ function SignUp(){
 	    <Description2>
 		Already have an account?
 		<Label6>
-		    <Link to="/">Login</Link>
+		    <Link to="/CSE442-542/2023-Spring/cse-442ad/">Login</Link>
 		</Label6>
 	    </Description2>
 	    
