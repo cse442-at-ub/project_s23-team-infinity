@@ -9,6 +9,7 @@ import {BrowserRouter as Router, Routes,Route,Link,useNavigate } from 'react-rou
 const Recovery = () => {
   const [email,setEmail] = useState('');
   const navigate = useNavigate();
+  
   const handleSubmit = () => {
     if (email.length === 0){
       alert("Empty email!")

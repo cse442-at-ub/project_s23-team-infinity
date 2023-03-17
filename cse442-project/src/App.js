@@ -17,7 +17,7 @@ function Login() {
     <Routes>
       <Route path="/" element={<Loginin/>} />
       <Route path="/recovery" element={<Recovery/>} />
-      <Route path="/verify" element={<Verify/>}/>
+      <Route path="/verify" element={<Verify/>}/>``
       <Route path="/reset"element={<Reset/>}/>
       <Route path="/home" element={<Home/>}/>
       <Route path="/signup" element={<SignUp/>}/>
