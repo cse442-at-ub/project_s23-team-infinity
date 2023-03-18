@@ -20,12 +20,13 @@ const handleLogin = async () => {
 
     const response = await axios.post('/CSE442-542/2023-Spring/cse-442ad/PHP/login.php', formData);
 
-    if (response.data.success) {
+    if (response.data === 'redirect to home page') {
       if (rememberMe) { // This is where remember me stores the user data
         localStorage.setItem('user', JSON.stringify(response.data.user));
       }
       navigate('/home');
     } else {
+      alert("Unkwon Account")
       setErrorMessage(response.data.message);
     }
   } catch (error) {

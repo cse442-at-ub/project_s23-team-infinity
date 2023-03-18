@@ -7,7 +7,7 @@ function SignUp(){
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [confirmpassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
 
   const navigate = useNavigate();
@@ -36,15 +36,34 @@ const handleSignUp = async (e) => {
     formData.append('username', username);
     formData.append('email', email);
     formData.append('password', password);
-    formData.append('confirmPassword', confirmPassword);
+    formData.append('retypepassword', confirmPassword);
+    formData.append('s', '1'); // Match the php 's' field to the FormData
 
     const response = await axios.post('/CSE442-542/2023-Spring/cse-442ad/PHP/register.php', formData);
 
-    if (response.data.success) { // if Data is right then go to home page
+    // Check if the response contains any of the error messages
+    const errorMessages = [
+      'Please Enter an Email',
+      'Please Enter a buffalo.edu email',
+      'Please Enter a Username',
+      'Please Enter a Password',
+      'Please Reenter your Password',
+      'Account Already Exists With This Email',
+      'Username Already Taken',
+      'Password Does Not Match',
+    ];
+    let errorMessage = '';
+    errorMessages.forEach((message) => {
+      if (response.data.includes(message)) {
+        errorMessage = message;
+      }
+    });
+
+    if (!errorMessage) {
       navigate('/home');
     } else {
-      setError(response.data.error);
-      alert("response data error");
+      setError(errorMessage);
+      alert(errorMessage);
     }
   } catch (err) {
     setError('An error occurred while signing up. Please try again.');
