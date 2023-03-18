@@ -50,7 +50,6 @@ const handleLogin =  () => {
       <Button2 onClick={handleLogin}>
         <Label5>Login</Label5>
       </Button2>
-      {errorMessage && <p>{errorMessage}</p>}
       <Description2>
         Don't have an account?
         <Label6>
