@@ -7,7 +7,7 @@ function SignUp(){
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [confirmpassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
 
   const navigate = useNavigate();
@@ -20,35 +20,28 @@ function SignUp(){
 
     // Control the submission
     
-    const handleSignUp = async (e) => {
-    e.preventDefault();
+const handleSignUp = () => {
 
-   // if the email is not in right form
-    if (!validateEmail(email)) {
-	setError('Please enter a valid email address.');
-	alert('Please enter a valid email address.')
-      return;
-    }
-	    try {             //connect to signup php file here
-        const formData = new FormData();
-        formData.append('username', username);
-        formData.append('email', email);
-        formData.append('password', password);
-        formData.append('confirmPassword', confirmPassword);
-    
-        const response = await axios.post('/CSE442-542/2023-Spring/cse-442ad/PHP/register.php', formData);
+  // if the email is not in the right form
+  if (!validateEmail(email)) {
+    setError('Please enter a valid email address.');
+    alert('Please enter a valid email address.');
+    return;
+  }
 
-      if (response.data.success) { // if Data is right then  go to home page
-        navigate('/home');
-      } else {
-          setError(response.data.error);
-	  alert("response data error")
-      }
-    } catch (err) {
-	setError('An error occurred while signing up. Please try again.');
-	alert('An error occurred while signing up. Please try again.')
-    }
-  };
+    // Connect to signup php file here
+    let Data = new FormData();
+    Data.append('username', username);
+    Data.append('email', email);
+    Data.append('password', password);
+    Data.append('retypepassword', confirmpassword);
+
+    const url = '/CSE442-542/2023-Spring/cse-442ad/PHP/register.php';
+
+    axios.post(url, Data).then(response=>alert(response.data)).catch(error=>alert(error));
+    //Turn to login page if no error
+    navigate('/CSE442-542/2023-Spring/cse-442ad/');
+}
 
     return (
 	<div>
@@ -80,7 +73,7 @@ function SignUp(){
 	     <h1></h1>
 	    <Input type="text"
 	           placeholder = "Confirm Password"
-	           value={confirmPassword}
+	           value={confirmpassword}
 	           onChange={(e) => setConfirmPassword(e.target.value)}
 	    />
 	    <h1></h1>
@@ -91,7 +84,7 @@ function SignUp(){
 	    <Description2>
 		Already have an account?
 		<Label6>
-		    <Link to="/CSE442-542/2023-Spring/cse-442ad/">Login</Link>
+		    <Link to="/">Login</Link>
 		</Label6>
 	    </Description2>
 	    
@@ -206,4 +199,3 @@ const Label6 = styled.label` //login text
  position: absolute;
   color: blue;
 `;
-

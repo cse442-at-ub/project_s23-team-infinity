@@ -9,29 +9,19 @@ const Loginin = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+
 
  // This handle the Login button
-const handleLogin = async () => {
-  try {
-    const formData = new FormData();
-    formData.append('username', username);
-    formData.append('password', password);
+const handleLogin =  () => {
+    let Data = new FormData();
+    Data.append('username', username);
+    Data.append('password', password);
 
-    const response = await axios.post('/CSE442-542/2023-Spring/cse-442ad/PHP/login.php', formData);
+    const url = '/CSE442-542/2023-Spring/cse-442ad/PHP/login.php'
+    axios.post(url, Data).then(response=>alert(response.data)).catch(error=>alert(error));
+    //Turn to home page
+    navigate('/CSE442-542/2023-Spring/cse-442ad/home');
 
-    if (response.data === 'redirect to home page') {
-      if (rememberMe) { // This is where remember me stores the user data
-        localStorage.setItem('user', JSON.stringify(response.data.user));
-      }
-      navigate('/home');
-    } else {
-      alert("Unkwon Account")
-      setErrorMessage(response.data.message);
-    }
-  } catch (error) {
-    alert('Not connect to PHP');
-  }
 };
 
 
@@ -60,7 +50,6 @@ const handleLogin = async () => {
       <Button2 onClick={handleLogin}>
         <Label5>Login</Label5>
       </Button2>
-      {errorMessage && <p>{errorMessage}</p>}
       <Description2>
         Don't have an account?
         <Label6>
@@ -249,4 +238,4 @@ const StyledImg = styled.img` //right pitcure
   left: 47.5%;
 `;
 
-export default Loginin; 
+export default Loginin;
