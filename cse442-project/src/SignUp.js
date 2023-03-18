@@ -30,12 +30,13 @@ function SignUp(){
       return;
     }
 	    try {             //connect to signup php file here
-      const response = await axios.post('/CSE442-542/2023-Spring/cse-442ad/PHP/register.php', {
-        username,
-        email,
-        password,
-        confirmPassword,
-      });
+        const formData = new FormData();
+        formData.append('username', username);
+        formData.append('email', email);
+        formData.append('password', password);
+        formData.append('confirmPassword', confirmPassword);
+    
+        const response = await axios.post('/CSE442-542/2023-Spring/cse-442ad/PHP/register.php', formData);
 
       if (response.data.success) { // if Data is right then  go to home page
         navigate('/home');

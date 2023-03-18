@@ -14,7 +14,7 @@ $conn = mysqli_connect($hostname,$serverusername,$serverpassword,$databasename);
 $email=$_POST['email'];
 $username=$_POST['username'];
 $password=$_POST["password"];
-$retypepassword=$_POST['confirmpassword'];
+$retypepassword=$_POST['confirmPassword'];
     $checkemail="SELECT * FROM Users WHERE Email = '$email'";
     $emailcheck=mysqli_query($conn,$checkemail);
     $checkusername="SELECT * FROM Users WHERE Username = '$username'";

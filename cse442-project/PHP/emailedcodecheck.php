@@ -8,9 +8,10 @@ $token = $_POST['token'];
 $checktoken = "SELECT * FROM PasswordTokens WHERE token = '$token'";
 $tokencheck = mysqli_query($conn,$checktoken);
 $row = mysqli_fetch_assoc($tokencheck);
-if($row['token'] != $token){
-    echo "Incorrect Token"; 
+if(mysqli_num_rows($tokencheck) == 0){
+    echo "Incorrect Token";
 }else{
     echo "Proceed to Change Password";
+    echo "<div data-tokencheck={'Correct'} class=\'token'\></div>";
 }
 ?>

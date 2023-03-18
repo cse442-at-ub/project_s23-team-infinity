@@ -12,25 +12,28 @@ const Loginin = () => {
   const [errorMessage, setErrorMessage] = useState('');
 
  // This handle the Login button
-  const handleLogin = async () => {
-    try {
-      const response = await axios.post('/CSE442-542/2023-Spring/cse-442ad/PHP/login.php', {
-        username,
-        password,
-      });
+const handleLogin = async () => {
+  try {
+    const formData = new FormData();
+    formData.append('username', username);
+    formData.append('password', password);
 
-      if (response.data.success) {
-        if (rememberMe) { //This is where remember me store the user data
-          localStorage.setItem('user', JSON.stringify(response.data.user));
-        }
-        navigate('/home');
-      } else {
-        setErrorMessage(response.data.message);
+    const response = await axios.post('/CSE442-542/2023-Spring/cse-442ad/PHP/login.php', formData);
+
+    if (response.data === 'redirect to home page') {
+      if (rememberMe) { // This is where remember me stores the user data
+        localStorage.setItem('user', JSON.stringify(response.data.user));
       }
-    } catch (error) {
-      alert('Not connect to PHP');
+      navigate('/home');
+    } else {
+      alert("Unkwon Account")
+      setErrorMessage(response.data.message);
     }
-  };
+  } catch (error) {
+    alert('Not connect to PHP');
+  }
+};
+
 
     // Web page elements
   return (
@@ -51,7 +54,7 @@ const Loginin = () => {
         <Checkbox onChange={(e) => setRememberMe(e.target.checked)} />
         <Label3>Remeber me</Label3>
         <Label4>
-          <Link to="/CSE442-542/2023-Spring/cse-442ad/recovery">Forgot password?</Link>
+          <Link to="/recovery">Forgot password?</Link>
         </Label4>
       </Description>
       <Button2 onClick={handleLogin}>
@@ -61,7 +64,7 @@ const Loginin = () => {
       <Description2>
         Don't have an account?
         <Label6>
-          <Link to="/CSE442-542/2023-Spring/cse-442ad/signup">Sign Up</Link>
+          <Link to="/signup">Sign Up</Link>
         </Label6>
       </Description2>
     </div>
@@ -246,4 +249,4 @@ const StyledImg = styled.img` //right pitcure
   left: 47.5%;
 `;
 
-export default Loginin;
+export default Loginin; 
