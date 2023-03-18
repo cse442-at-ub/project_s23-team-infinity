@@ -12,6 +12,6 @@ if(mysqli_num_rows($tokencheck) == 0){
     echo "Incorrect Token";
 }else{
     echo "Proceed to Change Password";
-    echo "<div data-tokencheck={'Correct'} class=\'token'\></div>";
+    return "<div data-tokencheck={'Correct'} class=\'token'\></div>";
 }
 ?>
