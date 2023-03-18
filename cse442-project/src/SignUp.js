@@ -20,8 +20,7 @@ function SignUp(){
 
     // Control the submission
     
-const handleSignUp = async (e) => {
-  e.preventDefault();
+const handleSignUp = () => {
 
   // if the email is not in the right form
   if (!validateEmail(email)) {
@@ -30,46 +29,18 @@ const handleSignUp = async (e) => {
     return;
   }
 
-  try {
     // Connect to signup php file here
-    const formData = new FormData();
-    formData.append('username', username);
-    formData.append('email', email);
-    formData.append('password', password);
-    formData.append('retypepassword', confirmPassword);
-    formData.append('s', '1'); // Match the php 's' field to the FormData
+    let Data = new FormData();
+    Data.append('username', username);
+    Data.append('email', email);
+    Data.append('password', password);
+    Data.append('retypepassword', confirmpassword);
 
-    const response = await axios.post('/CSE442-542/2023-Spring/cse-442ad/PHP/register.php', formData);
+    const url = '/CSE442-542/2023-Spring/cse-442ad/PHP/register.php';
 
-    // Check if the response contains any of the error messages
-    const errorMessages = [
-      'Please Enter an Email',
-      'Please Enter a buffalo.edu email',
-      'Please Enter a Username',
-      'Please Enter a Password',
-      'Please Reenter your Password',
-      'Account Already Exists With This Email',
-      'Username Already Taken',
-      'Password Does Not Match',
-    ];
-    let errorMessage = '';
-    errorMessages.forEach((message) => {
-      if (response.data.includes(message)) {
-        errorMessage = message;
-      }
-    });
-
-    if (!errorMessage) {
-      navigate('/home');
-    } else {
-      setError(errorMessage);
-      alert(errorMessage);
-    }
-  } catch (err) {
-    setError('An error occurred while signing up. Please try again.');
-    alert('An error occurred while signing up. Please try again.');
-  }
-};
+    axios.post(url, Data).then(response=>alert(response.data)).catch(error=>alert(error));
+    //Turn to login page if no error
+    navigate('/CSE442-542/2023-Spring/cse-442ad/');
 
 
     return (
@@ -102,7 +73,7 @@ const handleSignUp = async (e) => {
 	     <h1></h1>
 	    <Input type="text"
 	           placeholder = "Confirm Password"
-	           value={confirmPassword}
+	           value={confirmpassword}
 	           onChange={(e) => setConfirmPassword(e.target.value)}
 	    />
 	    <h1></h1>
