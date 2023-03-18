@@ -38,11 +38,16 @@ const handleSignUp = () => {
 
     const url = '/CSE442-542/2023-Spring/cse-442ad/PHP/register.php';
 
-    axios.post(url, Data).then(response=>alert(response.data)).catch(error=>alert(error));
-    //Turn to login page if no error
-    if (axios.post(url, Data).data == "Account Created"){
-	navigate('/CSE442-542/2023-Spring/cse-442ad/');}
-}
+    axios.post(url, Data).then(response=>{
+	alert(response.data);
+	 //Turn to login page if no error
+        if (response.data.toString() == "Account Created"){
+	    navigate('/CSE442-542/2023-Spring/cse-442ad/');
+	}
+             
+    }).catch(error=>alert(error))
+};
+ 
 
     return (
 	<div>
@@ -85,7 +90,7 @@ const handleSignUp = () => {
 	    <Description2>
 		Already have an account?
 		<Label6>
-		    <Link to="/">Login</Link>
+		    <Link to='/CSE442-542/2023-Spring/cse-442ad/'>Login</Link>
 		</Label6>
 	    </Description2>
 	    
