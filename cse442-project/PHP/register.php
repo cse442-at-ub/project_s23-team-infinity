@@ -14,28 +14,27 @@ $conn = mysqli_connect($hostname,$serverusername,$serverpassword,$databasename);
 $email=$_POST['email'];
 $username=$_POST['username'];
 $password=$_POST["password"];
-$retypepassword=$_POST['retypepassword'];
-if(isset($_POST['s'])) {
+$retypepassword=$_POST['confirmpassword'];
     $checkemail="SELECT * FROM Users WHERE Email = '$email'";
     $emailcheck=mysqli_query($conn,$checkemail);
     $checkusername="SELECT * FROM Users WHERE Username = '$username'";
     $usernamecheck=mysqli_query($conn,$checkusername);
     if($email == ""){
-        echo '<script>alert("Please Enter an Email")</script>';
+        echo "Please Enter an Email";
     }elseif(!endsWith($email,"@buffalo.edu")){
-        echo '<script>alert("Please Enter a buffalo.edu email")</script>';
+        echo "Please Enter a buffalo.edu email";
     }elseif($username == ""){
-        echo '<script>alert("Please Enter a Username")</script>';
+        echo "Please Enter a Username";
     }elseif($password == ""){
-        echo '<script>alert("Please Enter a Password")</script>';
+        echo "Please Enter a Password";
     }elseif($retypepassword == ""){
-        echo '<script>alert("Please Reenter your Password")</script>';
+        echo "Please Reenter your Password";
     }elseif(mysqli_num_rows($emailcheck) != 0){
-        echo '<script>alert("Account Already Exist With This Email")</script>';
+        echo "Account Already Exist With This Email";
     }elseif(mysqli_num_rows($usernamecheck) != 0){
-        echo '<script>alert("Username Already Taken")</script>';
+        echo "Username Already Taken";
     }elseif($password != $retypepassword) {
-        echo '<script>alert("Password Does Not Match")</script>';
+        echo "Password Does Not Match";
     }else{
         $insert = "INSERT INTO Users (Username,Email,Password) VALUE ('$username','$email','$password')";
         $inserted = mysqli_query($conn,$insert);
@@ -45,5 +44,4 @@ if(isset($_POST['s'])) {
             echo "ERROR Account Creation Failed";
         }
     }
-}
 ?>

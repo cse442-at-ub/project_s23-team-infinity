@@ -14,7 +14,7 @@ $tokencheck = mysqli_query($conn,$checktoken);
 if(isset($_POST['s'])){
     $row = mysqli_fetch_assoc($tokencheck);
     if($row['token'] != $token){
-        echo "<script>alert('Incorrect Token')</script>"; 
+        echo "Incorrect Token"; 
     }else{
     }
 }

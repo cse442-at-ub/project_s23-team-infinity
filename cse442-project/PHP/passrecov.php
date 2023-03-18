@@ -17,7 +17,7 @@ $createtoken = "INSERT INTO PasswordTokens VALUES ('$email','$random')";
 $putintoken = mysqli_query($conn,$createtoken);
 $lookedupemail = mysqli_query($conn,$lookupemail);
     if (mysqli_num_rows($lookedupemail) == 0) {
-        echo '<script>alert("No Account Created Using This Email")</script>';
+        echo "No Account Created Using This Email";
     }else{
         $row = mysqli_fetch_assoc($lookedupemail);
         echo "Check your email for link and token to reset password";
