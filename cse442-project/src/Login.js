@@ -20,7 +20,8 @@ const handleLogin =  () => {
     const url = '/CSE442-542/2023-Spring/cse-442ad/PHP/login.php'
     axios.post(url, Data).then(response=>alert(response.data)).catch(error=>alert(error));
     //Turn to home page
-    navigate('/CSE442-542/2023-Spring/cse-442ad/home');
+    if (axios.post(url, Data).data == "redirect to home page"){
+	navigate('/CSE442-542/2023-Spring/cse-442ad/home');}
 
 };
 

@@ -40,7 +40,8 @@ const handleSignUp = () => {
 
     axios.post(url, Data).then(response=>alert(response.data)).catch(error=>alert(error));
     //Turn to login page if no error
-    navigate('/CSE442-542/2023-Spring/cse-442ad/');
+    if (axios.post(url, Data).data == "Account Created"){
+	navigate('/CSE442-542/2023-Spring/cse-442ad/');}
 }
 
     return (
