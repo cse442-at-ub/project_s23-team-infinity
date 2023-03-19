@@ -22,13 +22,6 @@ function SignUp(){
     
 const handleSignUp = () => {
 
-  // if the email is not in the right form
-  if (!validateEmail(email)) {
-    setError('Please enter a valid email address.');
-    alert('Please enter a valid email address.');
-    return;
-  }
-
     // Connect to signup php file here
     let Data = new FormData();
     Data.append('username', username);
@@ -38,10 +31,16 @@ const handleSignUp = () => {
 
     const url = '/CSE442-542/2023-Spring/cse-442ad/PHP/register.php';
 
-    axios.post(url, Data).then(response=>alert(response.data)).catch(error=>alert(error));
-    //Turn to login page if no error
-    navigate('/CSE442-542/2023-Spring/cse-442ad/');
-}
+    axios.post(url, Data).then(response=>{
+	alert(response.data);
+	 //Turn to login page if no error
+        if (response.data.toString() == "Account Created"){
+	    navigate('/CSE442-542/2023-Spring/cse-442ad/');
+	}
+             
+    }).catch(error=>alert(error))
+};
+ 
 
     return (
 	<div>
@@ -84,7 +83,7 @@ const handleSignUp = () => {
 	    <Description2>
 		Already have an account?
 		<Label6>
-		    <Link to="/">Login</Link>
+		    <Link to='/CSE442-542/2023-Spring/cse-442ad/'>Login</Link>
 		</Label6>
 	    </Description2>
 	    
