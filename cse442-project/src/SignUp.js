@@ -7,47 +7,29 @@ function SignUp(){
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [confirmpassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
 
   const navigate = useNavigate();
 
-  //This is a valid email address form
-  const validateEmail = (email) => {
-    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(email).toLowerCase());
-  };
 
     // Control the submission
     
-    const handleSignUp = async (e) => {
-    e.preventDefault();
+const handleSignUp = () => {
 
-   // if the email is not in right form
-    if (!validateEmail(email)) {
-	setError('Please enter a valid email address.');
-	alert('Please enter a valid email address.')
-      return;
-    }
-	    try {             //connect to signup php file here
-      const response = await axios.post('https://localhost/PHP/server.php', {
-        username,
-        email,
-        password,
-        confirmPassword,
-      });
 
-      if (response.data.success) { // if Data is right then  go to home page
-        navigate('/home');
-      } else {
-          setError(response.data.error);
-	  alert("response data error")
-      }
-    } catch (err) {
-	setError('An error occurred while signing up. Please try again.');
-	alert('An error occurred while signing up. Please try again.')
-    }
-  };
+    // Connect to signup php file here
+    let Data = new FormData();
+    Data.append('username', username);
+    Data.append('email', email);
+    Data.append('password', password);
+    Data.append('retypepassword', confirmpassword);
+
+    const url = '/CSE442-542/2023-Spring/cse-442ad/PHP/register.php';
+
+    axios.post(url, Data).then(response=>
+	alert(response.data)).catch(error=>alert(error));
+}
 
     return (
 	<div>
@@ -79,18 +61,18 @@ function SignUp(){
 	     <h1></h1>
 	    <Input type="text"
 	           placeholder = "Confirm Password"
-	           value={confirmPassword}
+	           value={confirmpassword}
 	           onChange={(e) => setConfirmPassword(e.target.value)}
 	    />
 	    <h1></h1>
-	    <Button2 type = "submit">
+	    <Button2 type = "submit" onClick={handleSignUp}>
 		<Label5>Sign up</Label5>
 	    </Button2>
 		</form>
 	    <Description2>
 		Already have an account?
 		<Label6>
-		    <Link to="/">Login</Link>
+		    <Link to='/CSE442-542/2023-Spring/cse-442ad/'>Login</Link>
 		</Label6>
 	    </Description2>
 	    

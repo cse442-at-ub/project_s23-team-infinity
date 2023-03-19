@@ -9,28 +9,20 @@ const Loginin = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+
 
  // This handle the Login button
-  const handleLogin = async () => {
-    try {
-      const response = await axios.post('https://localhost/PHP/server.php', {
-        username,
-        password,
-      });
+const handleLogin =  () => {
+    let Data = new FormData();
+    Data.append('username', username);
+    Data.append('password', password);
 
-      if (response.data.success) {
-        if (rememberMe) { //This is where remember me store the user data
-          localStorage.setItem('user', JSON.stringify(response.data.user));
-        }
-        navigate('/home');
-      } else {
-        setErrorMessage(response.data.message);
-      }
-    } catch (error) {
-      alert('Not connect to PHP');
-    }
-  };
+    const url = '/CSE442-542/2023-Spring/cse-442ad/PHP/login.php'
+    axios.post(url, Data).then(response=>
+	alert(response.data)).catch(error=>alert(error));
+
+};
+
 
     // Web page elements
   return (
@@ -51,17 +43,16 @@ const Loginin = () => {
         <Checkbox onChange={(e) => setRememberMe(e.target.checked)} />
         <Label3>Remeber me</Label3>
         <Label4>
-          <Link to="/recovery">Forgot password?</Link>
+          <Link to="/CSE442-542/2023-Spring/cse-442ad/recovery">Forgot password?</Link>
         </Label4>
       </Description>
       <Button2 onClick={handleLogin}>
         <Label5>Login</Label5>
       </Button2>
-      {errorMessage && <p>{errorMessage}</p>}
       <Description2>
         Don't have an account?
         <Label6>
-          <Link to="/signup">Sign Up</Link>
+          <Link to="/CSE442-542/2023-Spring/cse-442ad/signup">Sign Up</Link>
         </Label6>
       </Description2>
     </div>
