@@ -12,9 +12,11 @@ function SignUp(){
 
   const navigate = useNavigate();
 
+
     // Control the submission
     
 const handleSignUp = () => {
+
 
     // Connect to signup php file here
     let Data = new FormData();
@@ -26,9 +28,8 @@ const handleSignUp = () => {
     const url = '/CSE442-542/2023-Spring/cse-442ad/PHP/register.php';
 
     axios.post(url, Data).then(response=>
-	alert(response.data)).catch(error=>alert(error))
-};
- 
+	alert(response.data)).catch(error=>alert(error));
+}
 
     return (
 	<div>
@@ -38,7 +39,6 @@ const handleSignUp = () => {
 	      </Button3>
 	    </Title>
 	    <Rectangle />
-	    <form onSubmit={handleSignUp}>
 	    <CR>Create an account</CR>
 	    <Input type="text"
 	           placeholder = "Enter your username"
@@ -64,10 +64,9 @@ const handleSignUp = () => {
 	           onChange={(e) => setConfirmPassword(e.target.value)}
 	    />
 	    <h1></h1>
-	    <Button2 type = "submit">
+	    <Button2 type = "submit" onClick={handleSignUp}>
 		<Label5>Sign up</Label5>
 	    </Button2>
-		</form>
 	    <Description2>
 		Already have an account?
 		<Label6>

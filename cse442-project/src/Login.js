@@ -43,7 +43,7 @@ const handleLogin =  () => {
         <Checkbox onChange={(e) => setRememberMe(e.target.checked)} />
         <Label3>Remeber me</Label3>
         <Label4>
-          <Link to='/CSE442-542/2023-Spring/cse-442ad/recovery'>Forgot password?</Link>
+          <Link to="/CSE442-542/2023-Spring/cse-442ad/recovery">Forgot password?</Link>
         </Label4>
       </Description>
       <Button2 onClick={handleLogin}>
