@@ -18,13 +18,8 @@ const handleLogin =  () => {
     Data.append('password', password);
 
     const url = '/CSE442-542/2023-Spring/cse-442ad/PHP/login.php'
-    axios.post(url, Data).then(response=>{
-	alert(response.data);
-	 //Turn to home page if the response right
-	if(response.data.toString() == "redirect to home page"){
-	    navigate('/CSE442-542/2023-Spring/cse-442ad/home');
-	}
-	 }).catch(error=>alert(error));
+    axios.post(url, Data).then(response=>
+	alert(response.data)).catch(error=>alert(error));
 
 };
 
@@ -48,7 +43,7 @@ const handleLogin =  () => {
         <Checkbox onChange={(e) => setRememberMe(e.target.checked)} />
         <Label3>Remeber me</Label3>
         <Label4>
-          <Link to="/recovery">Forgot password?</Link>
+          <Link to="/CSE442-542/2023-Spring/cse-442ad/recovery">Forgot password?</Link>
         </Label4>
       </Description>
       <Button2 onClick={handleLogin}>
@@ -57,7 +52,7 @@ const handleLogin =  () => {
       <Description2>
         Don't have an account?
         <Label6>
-          <Link to="/signup">Sign Up</Link>
+          <Link to="/CSE442-542/2023-Spring/cse-442ad/signup">Sign Up</Link>
         </Label6>
       </Description2>
     </div>

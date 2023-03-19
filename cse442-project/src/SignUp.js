@@ -12,15 +12,11 @@ function SignUp(){
 
   const navigate = useNavigate();
 
-  //This is a valid email address form
-  const validateEmail = (email) => {
-    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(email).toLowerCase());
-  };
 
     // Control the submission
     
 const handleSignUp = () => {
+
 
     // Connect to signup php file here
     let Data = new FormData();
@@ -31,16 +27,9 @@ const handleSignUp = () => {
 
     const url = '/CSE442-542/2023-Spring/cse-442ad/PHP/register.php';
 
-    axios.post(url, Data).then(response=>{
-	alert(response.data);
-	 //Turn to login page if no error
-        if (response.data.toString() == "Account Created"){
-	    navigate('/CSE442-542/2023-Spring/cse-442ad/');
-	}
-             
-    }).catch(error=>alert(error))
-};
- 
+    axios.post(url, Data).then(response=>
+	alert(response.data)).catch(error=>alert(error));
+}
 
     return (
 	<div>
@@ -50,7 +39,6 @@ const handleSignUp = () => {
 	      </Button3>
 	    </Title>
 	    <Rectangle />
-	    <form onSubmit={handleSignUp}>
 	    <CR>Create an account</CR>
 	    <Input type="text"
 	           placeholder = "Enter your username"
@@ -76,10 +64,9 @@ const handleSignUp = () => {
 	           onChange={(e) => setConfirmPassword(e.target.value)}
 	    />
 	    <h1></h1>
-	    <Button2 type = "submit">
+	    <Button2 type = "submit" onClick={handleSignUp}>
 		<Label5>Sign up</Label5>
 	    </Button2>
-		</form>
 	    <Description2>
 		Already have an account?
 		<Label6>
