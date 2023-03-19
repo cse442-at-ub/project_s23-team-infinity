@@ -6,12 +6,20 @@ import image from "./images/email.png";
 import axios from 'axios';
 import {BrowserRouter as Router, Routes,Route,Link, useNavigate } from 'react-router-dom';
 
+class UserContainer extends React.Component{
+  constructor(props){
+    super(props);
+    console.log(this.props.dataPostId)
+  }
+}
 const Verify = () => {
   const[code,setCode] = useState('')
   const navigate = useNavigate();
   const handleSubmit = () => {
     if (code.length === 0){
       alert("Please enter your code")
+      const userApp = document.getElementById('token')
+      ReactDom.render(<UserContainer {...userApp.dataset}/>, userApp)
     }else{
       const url = "/CSE442-542/2023-Spring/cse-442ad/PHP/emailedcodecheck.php" //change the path here to the php file location
       let Data = new FormData();
