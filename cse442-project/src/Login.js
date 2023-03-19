@@ -18,13 +18,8 @@ const handleLogin =  () => {
     Data.append('password', password);
 
     const url = '/CSE442-542/2023-Spring/cse-442ad/PHP/login.php'
-    axios.post(url, Data).then(response=>{
-	alert(response.data);
-	 //Turn to home page if the response right
-	if(response.data.toString() == "redirect to home page"){
-	    navigate('/CSE442-542/2023-Spring/cse-442ad/home');
-	}
-	 }).catch(error=>alert(error));
+    axios.post(url, Data).then(response=>
+	alert(response.data)).catch(error=>alert(error));
 
 };
 
