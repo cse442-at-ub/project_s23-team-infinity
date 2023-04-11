@@ -161,4 +161,184 @@
   .text-center{
     margin-left:10em;
   }
+  .create_event{
+    position: absolute;
+    top:0;
+    right:0;
+  }
+  .create_event_button{
+    background-color: rgba(201, 188, 188, 0.21);
+    border: none;
+    color: black;
+    padding: 12px 14px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    margin: 4px 2px;
+    border-radius: 50px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);    
+    vertical-align: middle;
+    font-family:'Fira Sans', sans-serif;
+    
+  }
+  .create_event_button:hover {
+    background-color: #83d4ea;
+    box-shadow: 0px 12px 20px rgba(0, 0, 0, 0.3);
+  }
+  .create_event_icon{
+    margin-right: 10px;
+    vertical-align: middle;
+    width:15px;
+    height:15px;
+  }
+  .event_detail{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 350px;
+    height: 350px;
+    transform: translate(-50%,-50%);
+    background-color: white;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-right: 20px;
+    padding-left: 20px;
+    border-radius: 25px;
+    z-index:1000;
+  }
+  .new_event_header{
+    position:absolute;
+    top:10%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    font-weight:bold;
+    font-size: 25px;
+  }
+  .event_title{
+    margin-top: 10%;
+    border: 1px solid #ccc;
+  }
+  .event_notes{
+    height:10%;
+    width:100%;
+    border: 1px solid #ccc;
+  }
+  .event_notes::placeholder{
+    position:absolute;
+    top:0;
+    left:0;
+    padding:5px;
+  }
+  .event_location{
+    border: 1px solid #ccc;
+  }
+  .close{
+    position: absolute;
+    top:6px;
+    right:6px;
+    width:25px;
+    height:25px;
+  }
+  .close:hover{
+    color: white;
+    border-radius: 100%;
+    background-color: red;
+    cursor: pointer;
+  }
+  .datepicker{
+    border: 1px solid #ccc;
+  }
+  .dropdown-container {
+    text-align: left;
+    border: 1px solid #ccc;
+    position: relative;
+    border-radius: 5px;
+    width:40%;
+  }
+  
+  .dropdown-input {
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    user-select: none;
+  }
+  .dropdown-menu{
+    position:absolute;
+    left:0;
+    right:0;
+    margin-top:10px;
+    justify-content: center;
+    width:100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: auto;
+    max-height: 150px;
+    background-color: #fff;
+    z-index: 10;
+  }
+  .dropdown-item{
+    padding:5px;
+    cursor:pointer;
+  }
+
+  .dropdown-item:hover{
+    background: color #9fc3f8;
+  }
+  .row{
+    display:flex;
+    flex-direction: row;
+  }
+  .confirm_create{
+    background-color: rgba(201, 188, 188, 0.21);
+    border: none;
+    color: black;
+    padding: 12px 14px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    margin: 4px 2px;
+    border-radius: 50px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);    
+    vertical-align: middle;
+    font-family:'Fira Sans', sans-serif;
+    margin-right: 20px;
+  }
+  .confirm_create:hover{
+    background-color: rgb(105, 224, 105);
+    box-shadow: 0px 12px 20px rgba(0, 0, 0, 0.3);
+  }
+  .confirm_cancel{
+    background-color: rgba(201, 188, 188, 0.21);
+    border: none;
+    color: black;
+    padding: 12px 14px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    margin: 4px 2px;
+    border-radius: 50px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);    
+    vertical-align: middle;
+    font-family:'Fira Sans', sans-serif;
+  }
+  .confirm_cancel:hover{
+    background-color: #83d4ea;
+    box-shadow: 0px 12px 20px rgba(0, 0, 0, 0.3);
+  }
+  .confirm{
+    position: absolute;
+    bottom:0;
+    right:0;
+    padding:20px;
+  }
   

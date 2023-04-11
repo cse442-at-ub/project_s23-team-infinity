@@ -81,7 +81,6 @@ const Rectangle = styled.div`
 
 const Login = styled.h1`
   font-size: 40px;
-  margin-top: 11%;
   margin-left:6.5%;
   text-align: left;
 `;
@@ -207,17 +206,16 @@ const Button2 = styled.button` //Login button
 `;
 
 const Button3 = styled.button` //Top right contact us
-  margin-left:55%;
-  background-color: #acb9c5;
+  background-color: gray;
   color: #fff;
   border: None;
   cursor: pointer;
-  height: 3.5%;
   width: 22%;
   font-size:100%;
   position:absolute;
+  right:0;
   &:hover {
-    background-color: gray;
+    background-color: #acb9c5;
   }
   &:focus {
     outline: none;
@@ -230,11 +228,11 @@ const Button3 = styled.button` //Top right contact us
 `;
 
 const StyledImg = styled.img` //right pitcure
-  width: 52%;
-  height: 93%;
+  width: 50%;
+  height: 91%;
   position: absolute;
   margin-top: 1.5%;
-  left: 47.5%;
+  left: 50%;
 `;
 
 export default Loginin;
