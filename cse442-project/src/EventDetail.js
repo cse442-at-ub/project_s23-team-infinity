@@ -5,6 +5,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 import {useState} from 'react'
 import axios from 'axios';
 import Dropdown from "./Dropdown";
+import {BsCalendarPlus} from 'react-icons/bs';
 
 const overlay_styles = {
   position: "fixed",
@@ -78,24 +79,27 @@ const EventDetail = ({ open, onClose}) => {
           }}
         />   
         <header className="new_event_header">New Event</header>   
-        <input className="event_title" type="text" placeholder="Add Title" value={title} onChange={(e) => setTitle(e.target.value)}/>
+        <input className="event_title" type="text" placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)}/>
+        <div className="Date_title">Date</div>
         <DatePicker 
         className="datepicker"
-        placeholderText="Pick a day"
+        placeholderText="Choose Date"
         selected={selectedDate}
         onChange={(date) => setSelectedDate(date)}
         dataFormat="dd/MM/YY"
         minDate={new Date()}
         />
-        <div className="row">
+        <div className="Date_title">Time</div>
+        <div className="start_time">
             <Dropdown placeHolder="Start Time"  options={times} result={Starttime}/>
             <Dropdown placeHolder="Select AM/PM"  options={time} result={Startap}/>
         </div>
-        <div className="row">
+        <div className="end_time">
             <Dropdown placeHolder="End Time"  options={times} result={Endtime}/>
             <Dropdown placeHolder="Select AM/PM"  options={time} result={Endap}/>
         </div>
         <input className="event_location" type="text" placeholder="Location(option)" value={location} onChange={(e) => setLocation(e.target.value)}/>
+        <div className="Note_title">Notes</div>
         <textarea className="event_notes" type="text" placeholder="Add Notes" value={notes} onChange={(e) => setNotes(e.target.value)}/>
 
         <div className="confirm">

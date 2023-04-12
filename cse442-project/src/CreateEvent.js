@@ -8,7 +8,8 @@ const CreateEvent = () => {
         <div className='create_event'>
             <button className="create_event_button"
                 onClick={()=>setCreateIsOpen(true)}
-            ><BsCalendarPlus className='create_event_icon'/>Create New Event</button>     
+            ><BsCalendarPlus className='create_event_icon'/>
+            Create New Event</button>     
             <EventDetail
                 open={CreateisOpen}
                 onClose={()=>setCreateIsOpen(false)}
