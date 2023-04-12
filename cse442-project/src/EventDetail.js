@@ -5,7 +5,6 @@ import 'react-datepicker/dist/react-datepicker.css'
 import {useState} from 'react'
 import axios from 'axios';
 import Dropdown from "./Dropdown";
-import {BsCalendarPlus} from 'react-icons/bs';
 
 const overlay_styles = {
   position: "fixed",
@@ -98,6 +97,7 @@ const EventDetail = ({ open, onClose}) => {
             <Dropdown placeHolder="End Time"  options={times} result={Endtime}/>
             <Dropdown placeHolder="Select AM/PM"  options={time} result={Endap}/>
         </div>
+        <div className="Note_title">Location</div>
         <input className="event_location" type="text" placeholder="Location(option)" value={location} onChange={(e) => setLocation(e.target.value)}/>
         <div className="Note_title">Notes</div>
         <textarea className="event_notes" type="text" placeholder="Add Notes" value={notes} onChange={(e) => setNotes(e.target.value)}/>
