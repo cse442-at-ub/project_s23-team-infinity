@@ -1,9 +1,5 @@
 <?php
-$hostname = "oceanus";
-$serverusername = "duncenzh";
-$serverpassword = "123";
-$databasename = "cse442_2023_spring_team_ad_db";
-$conn = mysqli_connect($hostname,$serverusername,$serverpassword,$databasename);
+include 'database.php';
 $token = $_POST['token'];
 $checktoken = "SELECT * FROM PasswordTokens WHERE token = '$token'";
 $tokencheck = mysqli_query($conn,$checktoken);

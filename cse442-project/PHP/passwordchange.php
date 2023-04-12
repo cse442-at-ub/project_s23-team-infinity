@@ -1,16 +1,6 @@
 <?php
-function endsWith($string, $endString){
-    $len = strlen($endString);
-    if ($len == 0) {
-        return true;
-    }
-    return (substr($string, -$len) === $endString);
-}
-$hostname = "oceanus";
-$serverusername = "duncenzh";
-$serverpassword = "123";
-$databasename = "cse442_2023_spring_team_ad_db";
-$conn = mysqli_connect($hostname,$serverusername,$serverpassword,$databasename);
+include 'database.php';
+include 'endswith.php';
 $usernameoremail = $_POST['username/email'];
 $newpassword = $_POST['newpassword'];
 if(!endsWith($usernameoremail,"@buffalo.edu")){

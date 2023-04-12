@@ -1,10 +1,5 @@
 <?php
-header('Access-Control-Allow-Origin: *');
-$hostname = "oceanus";
-$serverusername = "duncenzh";
-$serverpassword = "123";
-$databasename = "cse442_2023_spring_team_ad_db";
-$conn = mysqli_connect($hostname,$serverusername,$serverpassword,$databasename);
+include 'database.php';
 $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 $random = '';
 for ($i = 0; $i < 6; $i++) {
