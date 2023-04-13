@@ -3,13 +3,14 @@ import styled from 'styled-components';
 import Image1 from './images/Login1.png';
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Cookies from 'js-cookie'
 
 const Loginin = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
-
+  const c = Cookies.get('remember')
 
  // This handle the Login button
 const handleLogin =  () => {
@@ -28,6 +29,7 @@ const handleLogin =  () => {
   return (
     <div>
       <Title>
+        {console.log(c)}
         CSE442-TeamInfinity
         <Button3>Contact us</Button3>
       </Title>
