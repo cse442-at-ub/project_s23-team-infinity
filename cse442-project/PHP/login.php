@@ -10,6 +10,14 @@ $emailcheck=mysqli_query($conn,$checkemail);
 $expire = time() + ((60*60*24) * 7);
 $usertoken = password_hash(time(),PASSWORD_DEFAULT);
 $wrongtyping = "Your Email, Username or Password is Incorrect";
+$cookie_options = array(
+    'expires' => $expire,
+    'path' => '/',
+    'domain' => '.buffalo.edu',
+    'secure' => false,
+    'httponly' => false,
+    'samesite' => 'None'
+  );
     if(isset($_COOKIE['remember'])){
         echo 'redirect to homepage';
     }elseif($emailorusername == ""){
@@ -25,11 +33,11 @@ $wrongtyping = "Your Email, Username or Password is Incorrect";
                 echo $wrongtyping;
             }else{
                 echo 'redirect to homepage';
-                setcookie('token', $usertoken, $expire);
+                setcookie('token', $usertoken, $cookie_options);
                 $usertoken = "UPDATE Users SET token = '$usertoken' WHERE Email = '$emailorusername'";
                 $usertokenupdate = mysqli_query($conn,$usertoken);
                 //if(isset($_POST["rememberme"])){
-                    setcookie('remember', "remembertoken", $expire);
+                    setcookie('remember', $usertoken, $cookie_options);
                 //}
             }
         }
@@ -41,11 +49,12 @@ $wrongtyping = "Your Email, Username or Password is Incorrect";
             echo $wrongtyping; 
         }else{
             echo 'redirect to homepage';
-            setcookie('token', $usertoken, $expire);
+            setcookie('token', $usertoken, $cookie_options);
             $usertoken = "UPDATE Users SET token = '$usertoken' WHERE Username = '$emailorusername'";
             $usertokenupdate = mysqli_query($conn,$usertoken);
             //if(isset($_POST["rememberme"])){
-                setcookie('remember', "remembertoken", $expire);
+                setcookie('remember', $usertoken, $cookie_options);
+
             //}
         }
     }
