@@ -10,6 +10,7 @@ const Loginin = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
+  const [token, setToken] = useState('')
 
  // This handle the Login button
 const handleLogin =  () => {
@@ -23,6 +24,7 @@ const handleLogin =  () => {
       console.log(response.data)
       const usertoken1 = response.data[1];
       const checkmessage = response.data[0];
+      setToken(checkmessage)
       if(checkmessage === "Please Enter a Email or Username") {
         alert("Please Enter a Email or Username");
       }else if(checkmessage === "Please Enter Your Password"){
@@ -33,7 +35,7 @@ const handleLogin =  () => {
         if(response.data.length > 1){
             localStorage.setItem('remembercookie',usertoken1)
         }
-        navigate('/CSE442-542/2023-Spring/cse-442ad/home')
+        navigate(`/CSE442-542/2023-Spring/cse-442ad/home?token=${checkmessage}`)
       }
       
     })
@@ -61,7 +63,7 @@ const handleLogin =  () => {
       <Label1>Email/Username:</Label1>
       <Input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
       <Label2>Password:</Label2>
-      <Input type="text" value={password} onChange={(e) => setPassword(e.target.value)} />
+      <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
       <Description>
         <Checkbox onChange={(e) => setRememberMe(e.target.checked)} />
         <Label3>Remeber me</Label3>
