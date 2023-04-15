@@ -19,7 +19,7 @@ $cookie_options = array(
     'samesite' => 'None'
   );
     if(isset($_COOKIE['remember'])){
-        echo 'redirect to homepage';
+        echo json_encode(array('token', $_COOKIE['remember']));
     }elseif($emailorusername == ""){
         echo "Please Enter a Email or Username";
     }elseif($password == ""){
@@ -36,9 +36,9 @@ $cookie_options = array(
                 setcookie('token', $usertoken, $cookie_options);
                 $usertoken = "UPDATE Users SET token = '$usertoken' WHERE Email = '$emailorusername'";
                 $usertokenupdate = mysqli_query($conn,$usertoken);
-                if($_POST["rememberMe"]){
-                    setcookie('remember', 'rememberme', $cookie_options);
-                }
+                //if($_POST["rememberMe"]){
+                  //  setcookie('remember', 'rememberme', $cookie_options);
+                //}
             }
         }
     }elseif(mysqli_num_rows($usernamecheck) == 0){
@@ -52,9 +52,9 @@ $cookie_options = array(
             setcookie('token', $usertoken, $cookie_options);
             $usertoken = "UPDATE Users SET token = '$usertoken' WHERE Username = '$emailorusername'";
             $usertokenupdate = mysqli_query($conn,$usertoken);
-            if($_POST["rememberMe"]){
-                setcookie('remember', 'rememberme', $cookie_options);
-            }
+            //if($_POST["rememberMe"]){
+                //setcookie('remember', 'rememberme', $cookie_options);
+            //}
         }
     }
 ?>

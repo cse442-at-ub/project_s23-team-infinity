@@ -10,31 +10,36 @@ const Loginin = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
-  const [cookie, setCookie] = useState('')
 
-  useEffect = (() =>{
-    const c = Cookies.get('remember')
-    setCookie(c)
-  },[])
  // This handle the Login button
 const handleLogin =  () => {
     let Data = new FormData();
     Data.append('username', username);
     Data.append('password', password);
-    Data.append('rememberMe', rememberMe);
 
     const url = '/CSE442-542/2023-Spring/cse-442ad/PHP/login.php'
-    axios.post(url, Data).then(response=>
-	alert(response.data)).catch(error=>alert(error));
+    axios.post(url, Data).then(response=>{
+      console.log(response)
+      console.log(response.data)
+      const usertoken1 = response.data[1];
+      if(usertoken1 === 'rememberme'){
+        localStorage.setItem('remembercookie',usertoken1)
+      }
+    })
 
+    
 };
-
+  useEffect(()=>{
+    const token = localStorage.getItem('remembercookie')
+    if (token){
+      navigate("/CSE442-542/2023-Spring/cse-442ad/home")
+    }
+  },[])
 
     // Web page elements
   return (
     <div>
       <Title>
-        {console.log(cookie)}
         CSE442-TeamInfinity
         <Button3>Contact us</Button3>
       </Title>
