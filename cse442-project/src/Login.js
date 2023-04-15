@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Image1 from './images/Login1.png';
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
@@ -10,12 +10,18 @@ const Loginin = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
+  const [cookie, setCookie] = useState('')
 
+  useEffect = (() =>{
+    const c = Cookies.get('remember')
+    setCookie(c)
+  },[])
  // This handle the Login button
 const handleLogin =  () => {
     let Data = new FormData();
     Data.append('username', username);
     Data.append('password', password);
+    Data.append('rememberMe', rememberMe);
 
     const url = '/CSE442-542/2023-Spring/cse-442ad/PHP/login.php'
     axios.post(url, Data).then(response=>
@@ -28,6 +34,7 @@ const handleLogin =  () => {
   return (
     <div>
       <Title>
+        {console.log(cookie)}
         CSE442-TeamInfinity
         <Button3>Contact us</Button3>
       </Title>

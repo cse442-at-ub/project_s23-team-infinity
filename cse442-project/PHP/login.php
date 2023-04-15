@@ -12,9 +12,9 @@ $usertoken = password_hash(time(),PASSWORD_DEFAULT);
 $wrongtyping = "Your Email, Username or Password is Incorrect";
 $cookie_options = array(
     'expires' => $expire,
-    'path' => '/',
-    'domain' => '.buffalo.edu',
-    'secure' => false,
+    'path' => '/CSE442-542/2023-Spring/cse-442ad/',
+    'domain' => 'www-student.cse.buffalo.edu',
+    'secure' => true,
     'httponly' => false,
     'samesite' => 'None'
   );
@@ -29,33 +29,32 @@ $cookie_options = array(
             echo $wrongtyping;
         }else{
             $row = mysqli_fetch_assoc($emailcheck);
-            if($row['Password']!=$password){
+            if(!password_verify($password,$row['Password'])){
                 echo $wrongtyping;
             }else{
                 echo 'redirect to homepage';
                 setcookie('token', $usertoken, $cookie_options);
                 $usertoken = "UPDATE Users SET token = '$usertoken' WHERE Email = '$emailorusername'";
                 $usertokenupdate = mysqli_query($conn,$usertoken);
-                //if(isset($_POST["rememberme"])){
-                    setcookie('remember', $usertoken, $cookie_options);
-                //}
+                if($_POST["rememberMe"]){
+                    setcookie('remember', 'rememberme', $cookie_options);
+                }
             }
         }
     }elseif(mysqli_num_rows($usernamecheck) == 0){
         echo $wrongtyping; 
     }else{
         $row = mysqli_fetch_assoc($usernamecheck);
-        if($row['Password']!=$password){
+        if(!password_verify($password,$row['Password'])){
             echo $wrongtyping; 
         }else{
             echo 'redirect to homepage';
             setcookie('token', $usertoken, $cookie_options);
             $usertoken = "UPDATE Users SET token = '$usertoken' WHERE Username = '$emailorusername'";
             $usertokenupdate = mysqli_query($conn,$usertoken);
-            //if(isset($_POST["rememberme"])){
-                setcookie('remember', $usertoken, $cookie_options);
-
-            //}
+            if($_POST["rememberMe"]){
+                setcookie('remember', 'rememberme', $cookie_options);
+            }
         }
     }
 ?>
