@@ -1,8 +1,7 @@
 <?php
 
     $sendback = "Event request received";
-    //CHANGE $usertoken = $_POST['usertoken'];
-    $username = $_POST['username'];
+    $usertoken = $_POST['usertoken'];
     $title = $_POST['title'];
     $date = $_POST['date'];
     $time = $_POST['time'] . ":00";
@@ -24,11 +23,9 @@
 
         $connection = mysqli_connect($dbhost,$dbuser,$dbpass,$dbname) or die("Connection Failed: " . mysqli_connect_error());
 
-        $stmt = mysqli_prepare($connection, "SELECT UserID FROM Users WHERE Username=?");
-        //CHANGE $stmt = mysqli_prepare($connection, "SELECT UserID FROM Users WHERE token=?");
+        $stmt = mysqli_prepare($connection, "SELECT UserID FROM Users WHERE token=?");
         //Following copied from the PHP mysqli Documentation for prepared statements: https://www.php.net/manual/en/mysqli.prepare.php
-        //CHANGE $first = mysqli_stmt_bind_param($stmt, "s", $usertoken);
-        $first = mysqli_stmt_bind_param($stmt, "s", $username);
+        $first = mysqli_stmt_bind_param($stmt, "s", $usertoken);
         $second = mysqli_stmt_execute($stmt);
         $third = mysqli_stmt_bind_result($stmt, $userID);
         $fourth = mysqli_stmt_fetch($stmt);

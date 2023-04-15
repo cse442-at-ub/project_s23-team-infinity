@@ -52,7 +52,7 @@ const EventModal = ({ date, events, token, onClose, onSave, onDelete,isOpen }) =
       
       Data.append('usertoken', token)
       //TEMPORARY TODO
-      Data.append('username', "cole")
+      //Data.append('username', "cole")
       Data.append('title', eventTitle)
       Data.append('date', date)
       Data.append('time', eventTime)
