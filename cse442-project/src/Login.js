@@ -16,15 +16,28 @@ const handleLogin =  () => {
     let Data = new FormData();
     Data.append('username', username);
     Data.append('password', password);
-
+    Data.append('rememberMe', rememberMe);
     const url = '/CSE442-542/2023-Spring/cse-442ad/PHP/login.php'
     axios.post(url, Data).then(response=>{
       console.log(response)
       console.log(response.data)
       const usertoken1 = response.data[1];
-      if(usertoken1 === 'rememberme'){
-        localStorage.setItem('remembercookie',usertoken1)
+      const checkmessage = response.data[0];
+      if(checkmessage === "Please Enter a Email or Username") {
+        alert("Please Enter a Email or Username");
+      }else if(checkmessage === "Please Enter Your Password"){
+        alert("Please Enter Your Password");
+      }else if(checkmessage === 'Your Email, Username or Password is Incorrect'){
+        alert('Your Email, Username or Password is Incorrect')
+      }else{
+        if(response.data.length > 1){
+          if(usertoken1){
+            localStorage.setItem('remembercookie',usertoken1)
+          }
+        }
+        navigate('/CSE442-542/2023-Spring/cse-442ad/home')
       }
+      
     })
 
     
