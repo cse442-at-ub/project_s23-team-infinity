@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import EventDetailsModal from './EventDetailsModal';
 import Modal from 'react-modal';
 import axios from 'axios';
+import Cookies from 'js-cookie';
+
 
 // Create Event Window Set-up
 Modal.setAppElement('#root');
@@ -45,19 +47,21 @@ const EventModal = ({ date, events, token, onClose, onSave, onDelete,isOpen }) =
     onSave(date, eventTitle, eventTime, eventEndTime,eventDetails,eventLocation);
 
     //PHP Server
-      const url = "/CSE442-542/2023-Spring/cse-442ad/PHP/home.php" //change the path here to the php file location
+      const url = "/CSE442-542/2023-Spring/cse-442ad/PHP/createevent.php" //change the path here to the php file location
       let Data = new FormData();
-      Data.append('Title', eventTitle)
-      Data.append('Date', date)
-      Data.append('Start', eventTime)
-      Data.append('End', eventEndTime)
-      Data.append('Location', eventLocation)
-      Data.append('Notes', eventDetails)
+      
+      //Data.append('usertoken', Cookies.get('token'))
+      //TEMPORARY TODO
+      Data.append('username', "cole")
+      Data.append('title', eventTitle)
+      Data.append('date', date)
+      Data.append('time', eventTime)
+      //Data.append('End', eventEndTime)
+      Data.append('location', eventLocation)
+      Data.append('notes', eventDetails)
       axios.post(url, Data)
       .then(response=>alert(response.data))
 	  .catch(error=> alert(error));
-
-
       
     setEventTitle('');
     setEventTime('');
