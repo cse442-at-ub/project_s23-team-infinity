@@ -50,7 +50,7 @@ const EventModal = ({ date, events, token, onClose, onSave, onDelete,isOpen }) =
       const url = "/CSE442-542/2023-Spring/cse-442ad/PHP/createevent.php" //change the path here to the php file location
       let Data = new FormData();
       
-      //Data.append('usertoken', Cookies.get('token'))
+      Data.append('usertoken', token)
       //TEMPORARY TODO
       Data.append('username', "cole")
       Data.append('title', eventTitle)
