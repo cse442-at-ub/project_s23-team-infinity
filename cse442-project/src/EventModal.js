@@ -29,7 +29,7 @@ const customStyles = {
 
 
 // This is the Create Event functionality
-const EventModal = ({ date, events, onClose, onSave, onDelete,isOpen }) => {
+const EventModal = ({ date, events, token, onClose, onSave, onDelete,isOpen }) => {
   const [eventTitle, setEventTitle] = React.useState('');
   const [eventTime, setEventTime] = React.useState('');
   const [eventDetails, setEventDetails] = React.useState('');
