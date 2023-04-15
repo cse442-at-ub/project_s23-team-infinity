@@ -46,7 +46,7 @@ $cookie_options = array(
         echo json_encode(array($wrongtyping));
     }else{
         $row = mysqli_fetch_assoc($usernamecheck);
-        if($password != $row['Password']){
+        if(!password_verify($password,$row['Password'])){
             echo json_encode(array($wrongtyping));
         }else{
             setcookie('token', $usertoken, $cookie_options);

@@ -31,9 +31,7 @@ const handleLogin =  () => {
         alert('Your Email, Username or Password is Incorrect')
       }else{
         if(response.data.length > 1){
-          if(usertoken1){
             localStorage.setItem('remembercookie',usertoken1)
-          }
         }
         navigate('/CSE442-542/2023-Spring/cse-442ad/home')
       }
