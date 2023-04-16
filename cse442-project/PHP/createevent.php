@@ -8,7 +8,7 @@
     $location = $_POST['location'];
     $notes = $_POST['notes'];
 
-    if (strlen(trim($username)) == 0 or strlen(trim($title)) == 0) {
+    if (strlen(trim($usertoken)) == 0 or strlen(trim($title)) == 0) {
         $sendback = "New event requires both username and event title";
         echo $sendback;
         die();
