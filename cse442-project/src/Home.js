@@ -7,6 +7,10 @@ import EventTimeline from './EventTimeline';
 import CreateEvent from './CreateEvent';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+
+
 // Home page for Calendar Web
 function Calendar() {
   const [selectedDate, setSelectedDate] = React.useState(new Date());
@@ -60,6 +64,15 @@ const deleteEventFromBackend = async (eventData) => {
 };
 
 
+  useEffect(()=>{
+    const url = '/CSE442-542/2023-Spring/cse-442ad/PHP/sqlresults.php'
+    let Data = new FormData();
+    Data.append('usertoken', token);
+    axios.post(url, Data).then(response=>{
+      const eventdata = response.data
+      console.log(eventdata)
+    })
+  },[])
   const handleCreateEventButtonClick = () => {
     setShowCreateEvent(true);
     setShowEventModal(true);
