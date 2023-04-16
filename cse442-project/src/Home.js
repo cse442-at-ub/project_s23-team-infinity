@@ -6,13 +6,16 @@ import 'react-calendar/dist/Calendar.css';
 import EventTimeline from './EventTimeline';
 import CreateEvent from './CreateEvent';
 import axios from 'axios';
+import { useLocation } from 'react-router-dom';
 // Home page for Calendar Web
 function Calendar() {
   const [selectedDate, setSelectedDate] = React.useState(new Date());
   const [events, setEvents] = React.useState({});
   const [showEventModal, setShowEventModal] = React.useState(false);
   const [showCreateEvent, setShowCreateEvent] = React.useState(false);
-
+  const location = useLocation()
+  const searchParams = new URLSearchParams(location.search);
+  const token = searchParams.get('token');
   //This is the user's events.
   const [userEvents, setUserEvents] = React.useState([]);
 
@@ -149,6 +152,7 @@ const deleteEventFromBackend = async (eventData) => {
       <EventModal
         date={selectedDate}
         events={events[selectedDate.toDateString()] || []}
+        token={token}
         onClose={handleCloseModal}
         onSave={handleSaveEvent}
         onDelete={handleDeleteEvent}

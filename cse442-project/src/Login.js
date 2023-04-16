@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Image1 from './images/Login1.png';
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
@@ -10,26 +10,49 @@ const Loginin = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
-  const c = Cookies.get('remember')
+  const [token, setToken] = useState('')
 
  // This handle the Login button
 const handleLogin =  () => {
     let Data = new FormData();
     Data.append('username', username);
     Data.append('password', password);
-
+    Data.append('rememberMe', rememberMe);
     const url = '/CSE442-542/2023-Spring/cse-442ad/PHP/login.php'
-    axios.post(url, Data).then(response=>
-	alert(response.data)).catch(error=>alert(error));
+    axios.post(url, Data).then(response=>{
+      console.log(response)
+      console.log(response.data)
+      const usertoken1 = response.data[1];
+      const checkmessage = response.data[0];
+      setToken(checkmessage)
+      if(checkmessage === "Please Enter a Email or Username") {
+        alert("Please Enter a Email or Username");
+      }else if(checkmessage === "Please Enter Your Password"){
+        alert("Please Enter Your Password");
+      }else if(checkmessage === 'Your Email, Username or Password is Incorrect'){
+        alert('Your Email, Username or Password is Incorrect')
+      }else{
+        if(response.data.length > 1){
+            localStorage.setItem('remembercookie',usertoken1)
+        }
+        navigate(`/CSE442-542/2023-Spring/cse-442ad/home?token=${checkmessage}`)
+      }
+      
+    })
 
+    
 };
-
+  useEffect(()=>{
+    const token = localStorage.getItem('remembercookie')
+    if (token){
+      navigate("/CSE442-542/2023-Spring/cse-442ad/home")
+    }
+  },[])
 
     // Web page elements
   return (
     <div>
       <Title>
-        {console.log(c)}
         CSE442-TeamInfinity
         <Button3>Contact us</Button3>
       </Title>
@@ -40,7 +63,7 @@ const handleLogin =  () => {
       <Label1>Email/Username:</Label1>
       <Input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
       <Label2>Password:</Label2>
-      <Input type="text" value={password} onChange={(e) => setPassword(e.target.value)} />
+      <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
       <Description>
         <Checkbox onChange={(e) => setRememberMe(e.target.checked)} />
         <Label3>Remeber me</Label3>

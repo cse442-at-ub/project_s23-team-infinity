@@ -26,7 +26,8 @@ $retypepassword=$_POST['retypepassword'];
     }elseif($password != $retypepassword) {
         echo "Password Does Not Match";
     }else{
-        $insert = "INSERT INTO Users (Username,Email,Password) VALUE ('$username','$email','$password')";
+        $passwordhash = password_hash($password,PASSWORD_DEFAULT);
+        $insert = "INSERT INTO Users (Username,Email,Password) VALUE ('$username','$email','$passwordhash')";
         $inserted = mysqli_query($conn,$insert);
         if($inserted) {
             echo "Account Created";

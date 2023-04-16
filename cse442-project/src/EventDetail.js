@@ -54,14 +54,15 @@ const EventDetail = ({ open, onClose}) => {
     }else if(selectedDate === null){
         alert("please pick a date")
     }else{
-      const url = "/CSE442-542/2023-Spring/cse-442ad/PHP/home.php" //change the path here to the php file location
+      const url = "/CSE442-542/2023-Spring/cse-442ad/PHP/createevent.php" //change the path here to the php file location
       let Data = new FormData();
-      Data.append('Title', title)
-      Data.append('Date', selectedDate)
-      Data.append('Start', start + " " + startap)
-      Data.append('End', end + " " + endap)
-      Data.append('Location', location)
-      Data.append('Notes', notes)
+      Data.append('username', "cole")
+      Data.append('title', title)
+      Data.append('date', selectedDate)
+      Data.append('time', start + " " + startap)
+      //Data.append('End', end + " " + endap)
+      Data.append('location', location)
+      Data.append('notes', notes)
       axios.post(url, Data)
       .then(response=>alert(response.data))
       .catch(error=> alert(error));
