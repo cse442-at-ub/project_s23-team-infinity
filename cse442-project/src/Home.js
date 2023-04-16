@@ -28,6 +28,33 @@ function Calendar() {
     }
   };
 
+  // Call fetchUserEvent
+  React.useEffect(() => {
+    fetchUserEvents();
+  }, []);
+
+
+  //This will delete the data from backend
+  const deleteEventFromBackend = async (eventData) => {
+    try {
+      //PHP Server
+      const response = await fetch('/CSE442-542/2023-Spring/cse-442ad/backend/sqlresults.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(eventData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Error deleting event from the backend');
+      }
+    } catch (error) {
+      console.error('Error deleting event:', error);
+    }
+  };
+
+
   const handleCreateEventButtonClick = () => {
     setShowCreateEvent(true);
     setShowEventModal(true);
