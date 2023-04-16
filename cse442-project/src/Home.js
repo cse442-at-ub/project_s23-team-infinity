@@ -8,7 +8,6 @@ import CreateEvent from './CreateEvent';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 
 
 // Home page for Calendar Web
