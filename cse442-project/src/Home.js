@@ -31,7 +31,7 @@ const fetchUserEvents = async (userId) => {
       params: {
         user_id: userId,
       },
-    });
+    }); 
 
     if (response.status === 200) {
       const userEvents = response.data;
