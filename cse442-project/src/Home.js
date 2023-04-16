@@ -12,6 +12,21 @@ function Calendar() {
   const [showEventModal, setShowEventModal] = React.useState(false);
   const [showCreateEvent, setShowCreateEvent] = React.useState(false);
 
+  //This is the user's events.
+  const [userEvents, setUserEvents] = React.useState([]);
+
+  // Fetch event data from php server
+  const fetchUserEvents = async () => {
+    try {
+      //PHP server
+      const response = await fetch('/CSE442-542/2023-Spring/cse-442ad/backend/sqlresults.php');
+      const events = await response.json();
+
+      setUserEvents(events);
+    } catch (error) {
+      console.error('Error fetching user events:', error);
+    }
+  };
 
   const handleCreateEventButtonClick = () => {
     setShowCreateEvent(true);
@@ -22,61 +37,61 @@ function Calendar() {
     setShowEventModal(false);
     setShowCreateEvent(false);
   };
-    
-  const handleSaveEvent = (date, title, time, endTime,Location, details) => {
-  const dateString = date.toDateString();
-  const newEvent = { title, time, Location, details };
-  const duration = calculateDuration(time, endTime);
 
-// This Helps to Check the Length of Event Card.
-  const timeParts = time.split(':');
-  const hour = parseInt(timeParts[0], 10);
-  const minute = parseInt(timeParts[1], 10);
-  const formattedTime = hour.toString().padStart(2, '0') + ':' + minute.toString().padStart(2, '0');
+  const handleSaveEvent = (date, title, time, endTime, Location, details) => {
+    const dateString = date.toDateString();
+    const newEvent = { title, time, Location, details };
+    const duration = calculateDuration(time, endTime);
 
-  const endTimeParts = endTime.split(':');
-  const endHour = parseInt(endTimeParts[0], 10);
-  const endMinute = parseInt(endTimeParts[1], 10);
-  const formattedEndTime = endHour.toString().padStart(2, '0') + ':' + endMinute.toString().padStart(2, '0');
+    // This Helps to Check the Length of Event Card.
+    const timeParts = time.split(':');
+    const hour = parseInt(timeParts[0], 10);
+    const minute = parseInt(timeParts[1], 10);
+    const formattedTime = hour.toString().padStart(2, '0') + ':' + minute.toString().padStart(2, '0');
 
-  setEvents((prevEvents) => {
-    const prevDateEvents = prevEvents[dateString] || [];
-    return {
-      ...prevEvents,
-      [dateString]: [...prevDateEvents, { ...newEvent, time: formattedTime, endTime: formattedEndTime, duration }],
-    };
-  });
-};
+    const endTimeParts = endTime.split(':');
+    const endHour = parseInt(endTimeParts[0], 10);
+    const endMinute = parseInt(endTimeParts[1], 10);
+    const formattedEndTime = endHour.toString().padStart(2, '0') + ':' + endMinute.toString().padStart(2, '0');
+
+    setEvents((prevEvents) => {
+      const prevDateEvents = prevEvents[dateString] || [];
+      return {
+        ...prevEvents,
+        [dateString]: [...prevDateEvents, { ...newEvent, time: formattedTime, endTime: formattedEndTime, duration }],
+      };
+    });
+  };
 
 
-// Event Time Duration
-function calculateDuration(startTime, endTime) {
-  const start = new Date(0, 0, 0, ...startTime.split(':').map(Number));
-  const end = new Date(0, 0, 0, ...endTime.split(':').map(Number));
-  const diff = end - start;
-  const minutes = Math.floor(diff / (1000 * 60));
-  return minutes;
-};
-    
-const handleDeleteEvent = (date, eventToDelete) => {
-  const dateString = date.toDateString();
+  // Event Time Duration
+  function calculateDuration(startTime, endTime) {
+    const start = new Date(0, 0, 0, ...startTime.split(':').map(Number));
+    const end = new Date(0, 0, 0, ...endTime.split(':').map(Number));
+    const diff = end - start;
+    const minutes = Math.floor(diff / (1000 * 60));
+    return minutes;
+  };
 
-  setEvents((prevEvents) => {
-    const prevDateEvents = prevEvents[dateString] || [];
-    const updatedEvents = prevDateEvents.filter(
-      (event) =>
-        event.title !== eventToDelete.title ||
-        event.time !== eventToDelete.time ||
+  const handleDeleteEvent = (date, eventToDelete) => {
+    const dateString = date.toDateString();
 
-        event.details !== eventToDelete.details
-    );
+    setEvents((prevEvents) => {
+      const prevDateEvents = prevEvents[dateString] || [];
+      const updatedEvents = prevDateEvents.filter(
+        (event) =>
+          event.title !== eventToDelete.title ||
+          event.time !== eventToDelete.time ||
 
-    return {
-      ...prevEvents,
-      [dateString]: updatedEvents,
-    };
-  });
-};
+          event.details !== eventToDelete.details
+      );
+
+      return {
+        ...prevEvents,
+        [dateString]: updatedEvents,
+      };
+    });
+  };
 
 
   const renderTileContent = (date) => {
@@ -115,7 +130,7 @@ const handleDeleteEvent = (date, eventToDelete) => {
         events={events[selectedDate.toDateString()] || []}
         onDelete={handleDeleteEvent}
       />
-      <CreateEvent/>
+      <CreateEvent />
     </AppContainer>
   );
 }

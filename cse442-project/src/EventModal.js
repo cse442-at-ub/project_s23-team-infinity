@@ -45,7 +45,7 @@ const EventModal = ({ date, events, onClose, onSave, onDelete,isOpen }) => {
     onSave(date, eventTitle, eventTime, eventEndTime,eventDetails,eventLocation);
 
     //PHP Server
-      const url = "/CSE442-542/2023-Spring/cse-442ad/PHP/createevent.php" //change the path here to the php file location
+      const url = "/CSE442-542/2023-Spring/cse-442ad/PHP/create.php" //change the path here to the php file location
       let Data = new FormData();
       Data.append('Title', eventTitle)
       Data.append('Date', date)
