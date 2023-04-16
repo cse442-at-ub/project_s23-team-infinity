@@ -6,6 +6,8 @@ import 'react-calendar/dist/Calendar.css';
 import EventTimeline from './EventTimeline';
 import CreateEvent from './CreateEvent';
 import { useLocation } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+
 // Home page for Calendar Web
 function Calendar() {
   const [selectedDate, setSelectedDate] = React.useState(new Date());
@@ -16,6 +18,14 @@ function Calendar() {
   const searchParams = new URLSearchParams(location.search);
   const token = searchParams.get('token');
 
+  useEffect(()=>{
+    let Data = new FormData();
+    Data.append('usertoken', token);
+    axios.post(url, Data).then(response=>{
+      const eventdata = response.Data
+      console.log(eventdata)
+    })
+  },[])
   const handleCreateEventButtonClick = () => {
     setShowCreateEvent(true);
     setShowEventModal(true);
