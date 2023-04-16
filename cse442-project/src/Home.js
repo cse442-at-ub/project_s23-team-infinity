@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import 'react-calendar/dist/Calendar.css';
 import EventTimeline from './EventTimeline';
 import CreateEvent from './CreateEvent';
+import axios from 'axios';
 // Home page for Calendar Web
 function Calendar() {
   const [selectedDate, setSelectedDate] = React.useState(new Date());
@@ -15,44 +16,45 @@ function Calendar() {
   //This is the user's events.
   const [userEvents, setUserEvents] = React.useState([]);
 
-  // Fetch event data from php server
-  const fetchUserEvents = async () => {
-    try {
-      //PHP server
-      const response = await fetch('/CSE442-542/2023-Spring/cse-442ad/backend/sqlresults.php');
-      const events = await response.json();
+// Fetch event data from php server
+const fetchUserEvents = async (userId) => {
+  try {
+    const url = '/CSE442-542/2023-Spring/cse-442ad/backend/sqlresults.php';
+    const response = await axios.get(url, {
+      params: {
+        user_id: userId,
+      },
+    });
 
-      setUserEvents(events);
-    } catch (error) {
-      console.error('Error fetching user events:', error);
+    if (response.status === 200) {
+      const userEvents = response.data;
+      setUserEvents(userEvents);
+    } else {
+     alert('Error: ' + response.status + ' ' + response.statusText)
     }
-  };
-
-  // Call fetchUserEvent
-  React.useEffect(() => {
-    fetchUserEvents();
-  }, []);
+  } catch (error) {
+   alert('Error: ' + error.message);
+  }
+};
 
 
-  //This will delete the data from backend
-  const deleteEventFromBackend = async (eventData) => {
-    try {
-      //PHP Server
-      const response = await fetch('/CSE442-542/2023-Spring/cse-442ad/backend/sqlresults.php', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(eventData),
-      });
+    // Call fetchUserEvent
+React.useEffect(() => {
+  fetchUserEvents();
+}, []);
 
-      if (!response.ok) {
-        throw new Error('Error deleting event from the backend');
-      }
-    } catch (error) {
-      console.error('Error deleting event:', error);
-    }
-  };
+
+//This will delete the data from backend
+const deleteEventFromBackend = async (eventData) => {
+  try {
+    const url = '/CSE442-542/2023-Spring/cse-442ad/backend/deleteevent.php';
+    const response = await axios.get(url, { params: eventData });
+
+    alert(response.data);
+  } catch (error) {
+    alert(error);
+  }
+};
 
 
   const handleCreateEventButtonClick = () => {
