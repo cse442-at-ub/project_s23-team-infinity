@@ -6,7 +6,9 @@ import 'react-calendar/dist/Calendar.css';
 import EventTimeline from './EventTimeline';
 import CreateEvent from './CreateEvent';
 import { useLocation } from 'react-router-dom';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+
 
 // Home page for Calendar Web
 function Calendar() {
@@ -19,10 +21,11 @@ function Calendar() {
   const token = searchParams.get('token');
 
   useEffect(()=>{
+    const url = '/CSE442-542/2023-Spring/cse-442ad/PHP/sqlresults.php'
     let Data = new FormData();
     Data.append('usertoken', token);
     axios.post(url, Data).then(response=>{
-      const eventdata = response.Data
+      const eventdata = response.data
       console.log(eventdata)
     })
   },[])
