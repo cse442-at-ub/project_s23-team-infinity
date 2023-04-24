@@ -4,7 +4,7 @@ import EventModal from './EventModal';
 import styled from 'styled-components';
 import 'react-calendar/dist/Calendar.css';
 import EventTimeline from './EventTimeline';
-
+import axios from 'axios';
 
 
 // Home page for Calendar Web
@@ -24,8 +24,80 @@ function Calendar() {
     setShowEventModal(false);
     setShowCreateEvent(false);
   };
+
+
+
+
+    //Fetch events from backend;
+async function fetchUserEvents() {
+  try {
+    const response = await axios.get('php_server');
+
+    if (response.status === 200) {// Check the status
+      const userEvents = response.data;
+
+      userEvents.forEach(event => {//Update all the events in backend
+        const date = new Date(event.date);
+        const title = event.title;
+        const Location = event.Location;
+        const time = event.time;
+        const endTime = event.endTime;
+        const details = event.details;
+	
+
+        handleSaveEvent(date, title, Location, time, endTime, details);
+      });
+    } else {
+      alert('Error: ' + response.status + ' ' + response.statusText);
+    }
+  } catch (error) {
+    alert('Error: ' + error.message);
+  }
+}
+
     
-  const handleSaveEvent = (date, title, time, endTime,Location, details) => {
+React.useEffect(() => {
+  fetchUserEvents();
+}, []);
+
+
+    // Delete event functionality
+ async function handleDeleteEvent(date, eventToDelete) {
+  const dateString = date.toDateString();
+
+  try {
+    const response = await axios.post('php_server', eventToDelete);
+
+    if (response.status === 200) {
+      setEvents((prevEvents) => {
+        const prevDateEvents = prevEvents[dateString] || [];
+        const updatedEvents = prevDateEvents.filter(
+          (event) =>
+            event.title !== eventToDelete.title ||
+            event.time !== eventToDelete.time ||
+            event.details !== eventToDelete.details
+        );
+
+        return {
+          ...prevEvents,
+          [dateString]: updatedEvents,
+        };
+      });
+    } else {
+      alert('Error: ' + response.status + ' ' + response.statusText);
+    }
+  } catch (error) {
+    alert('Error: ' + error.message);
+  }
+    }
+
+
+
+
+
+    
+    
+    const handleSaveEvent = (date, title, Location,time, endTime, details) => {
   const dateString = date.toDateString();
   const newEvent = { title, time, Location, details };
   const duration = calculateDuration(time, endTime);
@@ -60,25 +132,6 @@ function calculateDuration(startTime, endTime) {
   return minutes;
 };
     
-const handleDeleteEvent = (date, eventToDelete) => {
-  const dateString = date.toDateString();
-
-  setEvents((prevEvents) => {
-    const prevDateEvents = prevEvents[dateString] || [];
-    const updatedEvents = prevDateEvents.filter(
-      (event) =>
-        event.title !== eventToDelete.title ||
-        event.time !== eventToDelete.time ||
-
-        event.details !== eventToDelete.details
-    );
-
-    return {
-      ...prevEvents,
-      [dateString]: updatedEvents,
-    };
-  });
-};
 
 
   const renderTileContent = (date) => {
@@ -120,9 +173,6 @@ const handleDeleteEvent = (date, eventToDelete) => {
     </AppContainer>
   );
 }
-
-
-
 
 const AppContainer = styled.div`
   display: flex;
