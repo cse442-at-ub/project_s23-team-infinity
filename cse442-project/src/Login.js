@@ -20,8 +20,6 @@ const handleLogin =  () => {
     Data.append('rememberMe', rememberMe);
     const url = '/CSE442-542/2023-Spring/cse-442ad/PHP/login.php'
     axios.post(url, Data).then(response=>{
-      console.log(response)
-      console.log(response.data)
       const usertoken1 = response.data[1];
       const checkmessage = response.data[0];
       setToken(checkmessage)

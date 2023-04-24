@@ -6,8 +6,8 @@
   }
   .create_event{
     position: absolute;
-    bottom:10%;
-    left:10%;
+    top:5%;
+    right:5%;
     z-index: 1000;
   }
   .create_event_button{
