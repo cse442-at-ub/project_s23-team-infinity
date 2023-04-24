@@ -3,14 +3,19 @@ include 'database.php';
 include 'endswith.php';
 $usernameoremail = $_POST['username/email'];
 $newpassword = $_POST['newpassword'];
-$passwordhash = password_hash($newpassword,PASSWORD_DEFAULT);
-if(!endsWith($usernameoremail,"@buffalo.edu")){
-    $update = "UPDATE Users SET Password = '$passwordhash' WHERE Username = '$usernameoremail'";
-    $updated = mysqli_query($conn,$update);
+$passwordhash = password_hash($newpassword, PASSWORD_DEFAULT);
+
+if (!endsWith($usernameoremail, "@buffalo.edu")) {
+    $stmt = $conn->prepare("UPDATE Users SET Password = ? WHERE Username = ?");
+    $stmt->bind_param("ss", $passwordhash, $usernameoremail);
+    $stmt->execute();
+    $stmt->close();
     echo "Password Change Successful";
-}else{
-    $update = "UPDATE Users SET Password = '$passwordhash' WHERE Email = '$usernameoremail'";
-    $updated = mysqli_query($conn,$update);
+} else {
+    $stmt = $conn->prepare("UPDATE Users SET Password = ? WHERE Email = ?");
+    $stmt->bind_param("ss", $passwordhash, $usernameoremail);
+    $stmt->execute();
+    $stmt->close();
     echo "Password Change Successful";
 }
 ?>
