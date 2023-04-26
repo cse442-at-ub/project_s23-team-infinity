@@ -16,7 +16,7 @@ const overlay_styles = {
   zIndex: 1000,
 };
 
-const EventDetail = ({ open, onClose}) => {
+const EventDetail = ({ open, onClose, token}) => {
   const [title, setTitle] = useState(null)
   const [selectedDate, setSelectedDate] = useState(null)
   const [location, setLocation] = useState(null)
@@ -56,7 +56,7 @@ const EventDetail = ({ open, onClose}) => {
     }else{
       const url = "/CSE442-542/2023-Spring/cse-442ad/PHP/createevent.php" //change the path here to the php file location
       let Data = new FormData();
-      Data.append('username', "cole")
+      Data.append('usertoken', token)
       Data.append('title', title)
       Data.append('date', selectedDate)
       Data.append('time', start + " " + startap)

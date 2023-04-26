@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import 'react-calendar/dist/Calendar.css';
 import EventTimeline from './EventTimeline';
 import CreateEvent from './CreateEvent';
+import Message from './Message';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -21,6 +22,7 @@ function Calendar() {
   const token = searchParams.get('token');
   //This is the user's events.
   const [userEvents, setUserEvents] = React.useState([]);
+  const [eventnumber,setEventNumber] = useState(0);
 
 // Fetch event data from php server
 const fetchUserEvents = async (userId) => {
@@ -69,9 +71,11 @@ const deleteEventFromBackend = async (eventData) => {
     Data.append('usertoken', token);
     axios.post(url, Data).then(response=>{
       const eventdata = response.data
+      setEventNumber(eventdata.length)
       console.log(eventdata)
     })
   },[])
+
   const handleCreateEventButtonClick = () => {
     setShowCreateEvent(true);
     setShowEventModal(true);
@@ -158,6 +162,7 @@ const deleteEventFromBackend = async (eventData) => {
     <AppContainer>
       <CalendarContainer>
         <h1>Infinity Calendar</h1>
+        {console.log(eventnumber)}
         <StyledReactCalendar value={selectedDate} onClickDay={setSelectedDate} />
         <Button onClick={handleCreateEventButtonClick}>Create Event</Button>
       </CalendarContainer>
@@ -175,7 +180,12 @@ const deleteEventFromBackend = async (eventData) => {
         events={events[selectedDate.toDateString()] || []}
         onDelete={handleDeleteEvent}
       />
-      <CreateEvent />
+      <Message
+      count={eventnumber}/>
+      
+      <CreateEvent
+      token={token}
+      />
     </AppContainer>
   );
 }
