@@ -5,14 +5,13 @@ import { CgProfile } from "react-icons/cg";
 import { IoMdLogOut } from 'react-icons/io';
 import axios from 'axios';
 
-const Navbar = (usertoken) => {
+const Navbar = ({usertoken,name}) => {
   let navigate = useNavigate();
   const logout = () => {
     const url = '/CSE442-542/2023-Spring/cse-442ad/PHP/logout.php'
     let Data = new FormData();
     Data.append('usertoken', usertoken);
-    axios.post(url, Data).then(response=> 
-    alert(response.data)).catch(error=> alert(error));
+    axios.post(url, Data)
     localStorage.removeItem('remembercookie');
     navigate("/CSE442-542/2023-Spring/cse-442ad/");
   }
@@ -24,7 +23,7 @@ const Navbar = (usertoken) => {
             <CgProfile
               className="navbarIcon">
             </CgProfile>
-            <span>username</span>
+            <span>{name}</span>
             <IoMdLogOut className="navbarIcon_setting" onClick={()=>logout()}>
             </IoMdLogOut>      
           </td>

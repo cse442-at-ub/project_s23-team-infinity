@@ -24,6 +24,7 @@ function Calendar() {
   //This is the user's events.
   const [userEvents, setUserEvents] = React.useState([]);
   const [eventnumber,setEventNumber] = useState(0);
+  const [username, setUserName] = useState('')
   const navigate = useNavigate();
 
 // Fetch event data from php server
@@ -73,7 +74,10 @@ const deleteEventFromBackend = async (eventData) => {
     Token.append('usertoken', token)
     axios.post(_url, Token).then(response=>{
       const in_not_in = response.data
-      if (in_not_in === 'notin'){
+      console.log(in_not_in.length)
+      if (in_not_in.length > 1){
+        setUserName(in_not_in[1])
+      }else{
         navigate("/CSE442-542/2023-Spring/cse-442ad/")
       }
     })
@@ -172,8 +176,7 @@ const deleteEventFromBackend = async (eventData) => {
 
   return (
     <AppContainer>
-      <Navbar
-      usertoken={token}/>
+      <Navbar usertoken={token} name={username}/>
       <CalendarContainer>
         <h1>Infinity Calendar</h1>
         {console.log(eventnumber)}

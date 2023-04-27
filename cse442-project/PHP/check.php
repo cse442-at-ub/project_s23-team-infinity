@@ -1,7 +1,7 @@
 <?php
 include "database.php";
 
-$token = $_POST['token'];
+$token = $_POST['usertoken'];
 
 $stmt = $conn->prepare("SELECT Username FROM Users WHERE token = ?");
 $stmt->bind_param("s", $token);
