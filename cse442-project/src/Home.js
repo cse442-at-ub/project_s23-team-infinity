@@ -7,7 +7,8 @@ import EventTimeline from './EventTimeline';
 import CreateEvent from './CreateEvent';
 import Message from './Message';
 import axios from 'axios';
-import { useLocation } from 'react-router-dom';
+import Navbar from './Navbar';
+import { useLocation, useNavigate} from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 
@@ -23,6 +24,7 @@ function Calendar() {
   //This is the user's events.
   const [userEvents, setUserEvents] = React.useState([]);
   const [eventnumber,setEventNumber] = useState(0);
+  const navigate = useNavigate();
 
 // Fetch event data from php server
 const fetchUserEvents = async (userId) => {
@@ -66,6 +68,16 @@ const deleteEventFromBackend = async (eventData) => {
 
 
   useEffect(()=>{
+    const _url = '/CSE442-542/2023-Spring/cse-442ad/PHP/check.php'
+    let Token = new FormData();
+    Token.append('usertoken', token)
+    axios.post(_url, Token).then(response=>{
+      const in_not_in = response.data
+      if (in_not_in === 'notin'){
+        navigate("/CSE442-542/2023-Spring/cse-442ad/")
+      }
+    })
+
     const url = '/CSE442-542/2023-Spring/cse-442ad/PHP/sqlresults.php'
     let Data = new FormData();
     Data.append('usertoken', token);
@@ -160,6 +172,8 @@ const deleteEventFromBackend = async (eventData) => {
 
   return (
     <AppContainer>
+      <Navbar
+      usertoken={token}/>
       <CalendarContainer>
         <h1>Infinity Calendar</h1>
         {console.log(eventnumber)}

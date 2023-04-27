@@ -190,7 +190,7 @@
     overflow: auto;
     max-height: 150px;
     background-color: #fff;
-    z-index: 10;
+    z-index: 1000000;
   }
   .dropdown-item{
     padding:5px;
@@ -261,4 +261,45 @@
     padding:10px;
     font-family: "Consolas";
   }
-  
+  #navbarOwnMain {
+    width: 100vw;
+    height: 5.5%;
+    background-color: #c1d6eb;
+    position: fixed;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    border-bottom: 1px solid #ccc;
+    z-index: 10000;
+  }
+
+  .navbartable{
+    margin: 0;
+    border-Collapse: collapse; 
+    float: right;
+  }
+
+  .navbarIcon {
+    margin-right: 2px;
+    margin-left: 20px;
+    transition: 0.1s ease-in-out;
+    vertical-align: middle;
+    height: 20px;
+    width:20px;
+    padding: 5px;
+  }
+  .navbarIcon_setting {
+    cursor: pointer;
+    margin-left: 20px;
+    transition: 0.1s ease-in-out;
+    vertical-align: middle;
+    height: 20px;
+    width:20px;
+    padding: 5px;
+  }
+
+  .navbarIcon_setting:hover{
+    background-color: #dee8f3;
+    border-radius: 10px;
+  }

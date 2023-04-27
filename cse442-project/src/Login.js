@@ -31,7 +31,7 @@ const handleLogin =  () => {
         alert('Your Email, Username or Password is Incorrect')
       }else{
         if(response.data.length > 1){
-            localStorage.setItem('remembercookie',usertoken1)
+            localStorage.setItem('remembercookie', checkmessage)
         }
         navigate(`/CSE442-542/2023-Spring/cse-442ad/home?token=${checkmessage}`)
       }
@@ -43,7 +43,7 @@ const handleLogin =  () => {
   useEffect(()=>{
     const token = localStorage.getItem('remembercookie')
     if (token){
-      navigate("/CSE442-542/2023-Spring/cse-442ad/home")
+      navigate(`/CSE442-542/2023-Spring/cse-442ad/home?token=${token}`)
     }
   },[])
 
