@@ -54,8 +54,8 @@ const EventModal = ({ date, events, token, onClose, onSave, onDelete,isOpen }) =
       //TEMPORARY TODO
       Data.append('title', eventTitle)
       Data.append('date', date)
-      Data.append('time', eventTime)
-      Data.append('End', eventEndTime)
+      Data.append('timeStart', eventTime)
+      Data.append('timeEnd', eventEndTime)
       Data.append('location', eventLocation)
       Data.append('notes', eventDetails)
       axios.post(url, Data)

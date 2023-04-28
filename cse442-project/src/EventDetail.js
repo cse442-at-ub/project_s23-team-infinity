@@ -17,12 +17,12 @@ const overlay_styles = {
 };
 
 const EventDetail = ({ open, onClose, token}) => {
-  const [title, setTitle] = useState(null)
-  const [selectedDate, setSelectedDate] = useState(null)
-  const [location, setLocation] = useState(null)
-  const [notes, setNotes] = useState(null)
-  const [start, setStart] = useState(null)
-  const [end, setEnd] = useState(null)
+  const [title, setTitle] = useState('')
+  const [selectedDate, setSelectedDate] = useState('')
+  const [location, setLocation] = useState('')
+  const [notes, setNotes] = useState('')
+  const [start, setStart] = useState('')
+  const [end, setEnd] = useState('')
 
   const times = [
     "00:00","00:15","00:30","00:45","01:00","01:15","01:30","01:45","02:00",
@@ -51,9 +51,9 @@ const EventDetail = ({ open, onClose, token}) => {
     }
   }
   const handleSubmit = () => {
-    if (title === null){
+    if (title === ''){
         alert("please enter a title")
-    }else if(selectedDate === null){
+    }else if(selectedDate === ''){
         alert("please pick a date")
     }else{
       const url = "/CSE442-542/2023-Spring/cse-442ad/PHP/createevent.php" //change the path here to the php file location
@@ -61,8 +61,8 @@ const EventDetail = ({ open, onClose, token}) => {
       Data.append('usertoken', token)
       Data.append('title', title)
       Data.append('date', selectedDate)
-      Data.append('time', start)
-      Data.append('End', end)
+      Data.append('timeStart', start)
+      Data.append('timeEnd', end)
       Data.append('location', location)
       Data.append('notes', notes)
       axios.post(url, Data)
@@ -71,12 +71,12 @@ const EventDetail = ({ open, onClose, token}) => {
 
     }
 
-    setTitle(null);
-    setSelectedDate(null);
-    setStart(null);
-    setEnd(null)
-    setLocation(null);
-    setNotes(null)
+    setTitle('');
+    setSelectedDate('');
+    setStart('');
+    setEnd('')
+    setLocation('');
+    setNotes('')
     onClose();
   }
   if (!open) return null;
