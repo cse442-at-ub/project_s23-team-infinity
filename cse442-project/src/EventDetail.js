@@ -23,8 +23,6 @@ const EventDetail = ({ open, onClose, token}) => {
   const [notes, setNotes] = useState(null)
   const [start, setStart] = useState(null)
   const [end, setEnd] = useState(null)
-  const [startap, setStartap] = useState(null)
-  const [endap, setEndap] = useState(null)
 
   const times = [
     "00:00","00:15","00:30","00:45","01:00","01:15","01:30","01:45","02:00",
@@ -40,13 +38,17 @@ const EventDetail = ({ open, onClose, token}) => {
     setStart(newdata)
   }
   const Startap = (newdata) => {
-    setStartap(newdata)
+    if (newdata === 'Pm'){
+      setStart(String(parseInt(start[0]) + 1) + String(parseInt(start[1]) + 2) + ":" + start[3] + start [4])
+    }
   }
   const Endtime = (newdata) => {
     setEnd(newdata)
   }
   const Endap = (newdata) => {
-    setEndap(newdata)
+    if (newdata === 'Pm'){
+      setEnd(String(parseInt(end[0]) + 1) + String(parseInt(end[1]) + 2) + ":" + end[3] + end[4])
+    }
   }
   const handleSubmit = () => {
     if (title === null){
@@ -59,14 +61,23 @@ const EventDetail = ({ open, onClose, token}) => {
       Data.append('usertoken', token)
       Data.append('title', title)
       Data.append('date', selectedDate)
-      Data.append('time', start + " " + startap)
-      //Data.append('End', end + " " + endap)
+      Data.append('time', start)
+      Data.append('End', end)
       Data.append('location', location)
       Data.append('notes', notes)
       axios.post(url, Data)
-      .then(response=>alert(response.data))
+      .then(alert('Event created'))
       .catch(error=> alert(error));
+
     }
+
+    setTitle(null);
+    setSelectedDate(null);
+    setStart(null);
+    setEnd(null)
+    setLocation(null);
+    setNotes(null)
+    onClose();
   }
   if (!open) return null;
   return (
