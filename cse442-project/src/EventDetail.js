@@ -17,14 +17,12 @@ const overlay_styles = {
 };
 
 const EventDetail = ({ open, onClose, token}) => {
-  const [title, setTitle] = useState(null)
-  const [selectedDate, setSelectedDate] = useState(null)
-  const [location, setLocation] = useState(null)
-  const [notes, setNotes] = useState(null)
-  const [start, setStart] = useState(null)
-  const [end, setEnd] = useState(null)
-  const [startap, setStartap] = useState(null)
-  const [endap, setEndap] = useState(null)
+  const [title, setTitle] = useState('')
+  const [selectedDate, setSelectedDate] = useState('')
+  const [location, setLocation] = useState('')
+  const [notes, setNotes] = useState('')
+  const [start, setStart] = useState('')
+  const [end, setEnd] = useState('')
 
   const times = [
     "00:00","00:15","00:30","00:45","01:00","01:15","01:30","01:45","02:00",
@@ -40,18 +38,22 @@ const EventDetail = ({ open, onClose, token}) => {
     setStart(newdata)
   }
   const Startap = (newdata) => {
-    setStartap(newdata)
+    if (newdata === 'Pm'){
+      setStart(String(parseInt(start[0]) + 1) + String(parseInt(start[1]) + 2) + ":" + start[3] + start [4])
+    }
   }
   const Endtime = (newdata) => {
     setEnd(newdata)
   }
   const Endap = (newdata) => {
-    setEndap(newdata)
+    if (newdata === 'Pm'){
+      setEnd(String(parseInt(end[0]) + 1) + String(parseInt(end[1]) + 2) + ":" + end[3] + end[4])
+    }
   }
   const handleSubmit = () => {
-    if (title === null){
+    if (title === ''){
         alert("please enter a title")
-    }else if(selectedDate === null){
+    }else if(selectedDate === ''){
         alert("please pick a date")
     }else{
       const url = "/CSE442-542/2023-Spring/cse-442ad/PHP/createevent.php" //change the path here to the php file location
@@ -59,14 +61,23 @@ const EventDetail = ({ open, onClose, token}) => {
       Data.append('usertoken', token)
       Data.append('title', title)
       Data.append('date', selectedDate)
-      Data.append('time', start + " " + startap)
-      //Data.append('End', end + " " + endap)
+      Data.append('timeStart', start)
+      Data.append('timeEnd', end)
       Data.append('location', location)
       Data.append('notes', notes)
       axios.post(url, Data)
-      .then(response=>alert(response.data))
+      .then(alert('Event created'))
       .catch(error=> alert(error));
+
     }
+
+    setTitle('');
+    setSelectedDate('');
+    setStart('');
+    setEnd('')
+    setLocation('');
+    setNotes('')
+    onClose();
   }
   if (!open) return null;
   return (

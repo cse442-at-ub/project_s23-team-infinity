@@ -4,7 +4,8 @@
     $usertoken = $_POST['usertoken'];
     $title = $_POST['title'];
     $date = $_POST['date'];
-    $time = $_POST['time'] . ":00";
+    $timeStart = $_POST['timeStart'] . ":00";
+    $timeEnd = $_POST['timeEnd'] . ":00";
     $location = $_POST['location'];
     $notes = $_POST['notes'];
 
@@ -53,9 +54,9 @@
             }
             */
             
-            $neweventStatement = mysqli_prepare($newConn, "INSERT INTO $tablename VALUES (NULL, ?, ?, ?, ?, ?, ?)");
+            $neweventStatement = mysqli_prepare($newConn, "INSERT INTO $tablename VALUES (NULL, ?, ?, ?,?,?, ?, ?)");
             $sendback = "prepared";
-            $first = mysqli_stmt_bind_param($neweventStatement, "isssss", $userID, $title, $date, $time, $location, $notes);
+            $first = mysqli_stmt_bind_param($neweventStatement, "issssss", $userID, $title, $date, $timeStart, $timeEnd, $location, $notes);
             $sendback = "bound";
             $second = mysqli_stmt_execute($neweventStatement);
             $sendback = "event created for ". $username;

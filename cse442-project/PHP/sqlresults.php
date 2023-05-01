@@ -22,7 +22,7 @@
         $prepstmt = mysqli_prepare($newConn,"SELECT * FROM Events WHERE UserID=?");
         $one = mysqli_stmt_bind_param($prepstmt, "s", $userID);
         $two = mysqli_stmt_execute($prepstmt);
-        mysqli_stmt_bind_result($prepstmt, $eventID, $userID, $title, $date, $time, $location, $notes);
+        mysqli_stmt_bind_result($prepstmt, $eventID, $userID, $title, $date, $timeStart, $timeEnd, $location, $notes);
         $jsonobject = array() ;
         while ($row = mysqli_stmt_fetch($prepstmt)) {
             array_push($jsonobject, array(
@@ -30,7 +30,8 @@
                 "userID"=>$userID, 
                 "title"=>$title, 
                 "date"=>$date, 
-                "time"=>$time, 
+                "timeStart"=>$timeStart,
+                "timeEnd"=>$timeEnd,
                 "location"=>$location, 
                 "notes"=>$notes));
         }
