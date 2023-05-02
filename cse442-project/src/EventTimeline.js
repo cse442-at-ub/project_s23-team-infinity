@@ -158,24 +158,32 @@ const renderTimeline = () => {
 
 
 return (
-  <EventModalContainer>
-    <h2>{date.toDateString()}</h2>
-    {renderTimeline()}
-    {showEventDetails && (
-      <>
-        <Backdrop onClick={handleEventDetailsClose} />
-        <EventDetailsModal
-          event={selectedEvent}
-          onClose={handleEventDetailsClose}
-          onDelete={(eventToDelete) => handleEventDelete(eventToDelete)}
-        />
-      </>
-    )}
-  </EventModalContainer>
+  <TimelineWrapper>
+    <EventModalContainer>
+      <h2>{date.toDateString()}</h2>
+      {renderTimeline()}
+      {showEventDetails && (
+        <>
+          <Backdrop onClick={handleEventDetailsClose} />
+          <EventDetailsModal
+            event={selectedEvent}
+            onClose={handleEventDetailsClose}
+            onDelete={(eventToDelete) => handleEventDelete(eventToDelete)}
+          />
+        </>
+      )}
+    </EventModalContainer>
+  </TimelineWrapper>
 );
+
 
 };
 
+const TimelineWrapper = styled.div`
+  flex: 1;
+  min-width: 20%; // Adjust this value according to your desired width for each day
+  max-width: 100%;
+`;
 
 const Backdrop = styled.div`
   position: fixed;
@@ -191,21 +199,19 @@ const Backdrop = styled.div`
 
 //Adjuct the timeline grid
 const EventModalContainer = styled.div`
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 65%; 
+  width: 100%;
   height: 100%;
   background-color: white;
   border-left: 1px solid #ccc;
   padding: 20px;
-  z-index: 100;
-  overflow-y: scroll; 
+  overflow-y: scroll;
 `;
+
 
 const Timeline = styled.div`
   margin-top: 0px;
   border-top: 0px solid #ccc;
+
 `;
 
 const TimelineRow = styled.div`
@@ -216,7 +222,7 @@ const TimelineRow = styled.div`
 `;
 
 const TimelineHour = styled.div`
-  width: 80px;
+  width: 40px;
   padding: 5px 0;
   text-align: right;
   font-weight: bold;
@@ -230,7 +236,7 @@ const EventGrid = styled.div`
 
 const TimelineEvents = styled.div`
   flex: 1;
-  padding: 5px 10px;
+  padding: 4px 10px;
   min-height: 40px;
   position: relative;
 `;
@@ -248,5 +254,6 @@ const EventCard = styled.div`
   left: ${({ left }) => left}%;
   height: ${({ duration }) => duration}px;
   width: ${({ width }) => width}%;
+ margin-left: -20px;
 `;
 export default EventTimeline;
