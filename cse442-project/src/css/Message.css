@@ -2,14 +2,13 @@
 .message{
     position: fixed;
     top: 88%;
-    left: 15%;
     width: 300px;
     height: 18%;
-    transform: translate(-50%,-50%);
     background-color: white;
     padding: 10px 10px;
     margin-left: 20px;
     border-radius: 20px;
+    top:75%;
     font-size: 17px;
     font-family: 'Kanit', sans-serif;
   }
