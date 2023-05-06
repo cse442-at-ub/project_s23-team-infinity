@@ -4,10 +4,15 @@ import EventModal from './EventModal';
 import styled from 'styled-components';
 import 'react-calendar/dist/Calendar.css';
 import EventTimeline from './EventTimeline';
+import CreateEvent from './CreateEvent';
+import Message from './Message';
 import axios from 'axios';
 import alarmSound from './alarm1.m4a';
 import { useLocation, useNavigate} from 'react-router-dom';
+import Navbar from './Navbar';
 import WeekTimeline from './WeekTimeline';
+import { useEffect, useState } from 'react';
+
 
 
 // Home page for Calendar Web
@@ -23,6 +28,11 @@ function Calendar() {
   const location = useLocation()
   const searchParams = new URLSearchParams(location.search);
   const token = searchParams.get('token');
+  const [userEvents, setUserEvents] = React.useState([]);
+  const [eventnumber,setEventNumber] = useState(0);
+  const [username, setUserName] = useState('')
+  const navigate = useNavigate();
+
   const [popupShown, setPopupShown] = React.useState(false);
 
   const openPopupWindow = () => {
@@ -47,7 +57,7 @@ const checkEventTimes = () => {
         openPopupWindow();
         setPopupShown(true);
           sendEventReminderEmail(token);
-	  alarmAudio.play();
+	        alarmAudio.play();
       }
     });
   }
@@ -90,45 +100,7 @@ React.useEffect(() => {
     setShowEventModal(false);
     setShowCreateEvent(false);
   };
-
-
-
-
-    //Fetch events from backend;
-async function fetchUserEvents(token) {
-  try {
-    const response = await axios.post('/CSE442-542/2023-Spring/cse-442ad/backend/sqlresults.php', {
-      usertoken: token,
-    });
-
-    if (response.status === 200) {
-      const userEvents = response.data;
-
-      userEvents.forEach((event) => {
-        const date = new Date(event[0]);
-        const title = event[1];
-        const Location = event[2];
-        const time = event[3];
-        const endTime = event[4];
-        const details = event[5];
-
-        handleSaveEvent(date, title, Location, time, endTime, details);
-      });
-    } else {
-      alert('Error: ' + response.status + ' ' + response.statusText);
-    }
-  } catch (error) {
-    alert('Error: ' + error.message);
-  }
-}
-
-
     
-React.useEffect(() => {
-  fetchUserEvents(token);
-}, []);
-
-
     // Delete event functionality
  async function handleDeleteEvent(date, eventToDelete) {
   const dateString = date.toDateString();
@@ -162,10 +134,35 @@ React.useEffect(() => {
 
 
 
+useEffect(()=>{
+    const _url = '/CSE442-542/2023-Spring/cse-442ad/PHP/check.php'
+    let Token = new FormData();
+    Token.append('usertoken', token)
+    axios.post(_url, Token).then(response=>{
+      const in_not_in = response.data
+      if (in_not_in.length > 1){
+        setUserName(in_not_in[1])
+      }else{
+        navigate("/CSE442-542/2023-Spring/cse-442ad/")
+      }
+    })
+
+    const url = '/CSE442-542/2023-Spring/cse-442ad/PHP/sqlresults.php'
+    let Data = new FormData();
+    Data.append('usertoken', token);
+    axios.post(url, Data).then(response=>{
+      const eventdata = response.data
+      setEventNumber(eventdata.length)
+      eventdata.forEach((event)=>{
+        const _date = new Date(event.date)
+        handleSaveEvent(_date, event.title, event.location, event.timeStart, event.timeEnd, event.notes);
+      })
+    })
+  },[])
 
     
     
-    const handleSaveEvent = (date, title, Location,time, endTime, details) => {
+  const handleSaveEvent = (date, title, Location, time, endTime, details) => {
   const dateString = date.toDateString();
   const newEvent = { title, time, Location, details };
   const duration = calculateDuration(time, endTime);
@@ -238,6 +235,9 @@ const getWeekDates = (date) => {
 
 return (
   <AppContainer>
+    <Navbar
+    usertoken={token}
+    name={username}/>
     <CalendarContainer>
       <h1>Infinity Calendar</h1>
       <StyledReactCalendar value={selectedDate} onClickDay={handleDayClick} />
@@ -255,12 +255,15 @@ return (
     </WeekTimelines>
     <EventModal
       date={selectedDate}
+      token={token}
       events={events[selectedDate.toDateString()] || []}
       onClose={handleCloseModal}
       onSave={handleSaveEvent}
       onDelete={handleDeleteEvent}
       isOpen={showEventModal && showCreateEvent}
     />
+    <Message
+    count={eventnumber}/>
   </AppContainer>
 );
 
@@ -269,7 +272,7 @@ const WeekTimelines = styled.div`
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 1rem;
-
+  margin-top:25px;
   max-height: 100vh;
   overflow-y: auto;
 `;
@@ -295,10 +298,10 @@ const CalendarContainer = styled.div`
 
   h1 {
     font-family: 'Trebuchet MS', sans-serif;
-    font-size: 48px; // Increase the font size
+    font-size: 32px; // Increase the font size
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); // Add a subtle text shadow for depth
     color: black; // Change the text color
-    margin-bottom: 20px; // Add more margin below the text
+    margin-top: 50px; // Add more margin below the text
     margin-left: 50px;
   }
 `;
@@ -312,7 +315,6 @@ const Button = styled.button`
   cursor: pointer;
   margin-top: 20px;
   width: 300px;
-  margin-left: 20px;
   font-weight: bold; // Make the text bolder
   font-size: 18px; // Increase font size
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); // Add a subtle shadow for depth

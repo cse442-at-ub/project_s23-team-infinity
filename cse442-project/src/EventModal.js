@@ -51,9 +51,11 @@ const EventModal = ({ date, events, token, onClose, onSave, onDelete,isOpen }) =
       let Data = new FormData();
       
       Data.append('usertoken', token)
+      console.log(token)
       //TEMPORARY TODO
       Data.append('title', eventTitle)
       Data.append('date', date)
+      console.log(date)
       Data.append('timeStart', eventTime)
       Data.append('timeEnd', eventEndTime)
       Data.append('location', eventLocation)
@@ -68,6 +70,7 @@ const EventModal = ({ date, events, token, onClose, onSave, onDelete,isOpen }) =
     setEventDetails('');
     setEventLocation('');
     onClose();
+    window.location.reload();
   };
 
   const handleGridClick = (event) => {
