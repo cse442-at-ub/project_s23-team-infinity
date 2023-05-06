@@ -1,7 +1,7 @@
 <?php
 include 'database.php';
 
-$notification = $_POST['nofication'];
+$notification = $_POST['usertoken'];
 
 if ($notification) {
     $stmt = $conn->prepare("SELECT * FROM Users WHERE token = ?");
