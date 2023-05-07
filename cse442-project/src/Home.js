@@ -64,18 +64,14 @@ const checkEventTimes = () => {
 };
 
 //Send email to users
-async function sendEventReminderEmail(token) {
-    try {
-	let Data = new FormData();
-	Data.append('usertoken',token);
-    const response = await axios.post('/CSE442-542/2023-Spring/cse-442ad/backend/emailnotif.php', Data);
-
-    if (response.status !== 200) {
-      alert('Error: ' + response.status + ' ' + response.statusText);
-    }
-  } catch (error) {
-    alert('Error: ' + error.message);
-  }
+    async function sendEventReminderEmail(token) {
+	let Data  = new FormData();
+	const url = '/CSE442-542/2023-Spring/cse-442ad/backend/emailnotif.php'
+	Data.append('usertoken',token)
+	axios.post(url, Data).then(response=>{
+            const resp = response.data
+	    })
+	
 }
 
     
@@ -103,12 +99,14 @@ React.useEffect(() => {
     
     // Delete event functionality
  async function handleDeleteEvent(date, eventToDelete) {
-  const dateString = date.toDateString();
+     const dateString = date.toDateString();
+     let Data = new FormData();
+     Data.append('eventTitle',eventToDelete.title)
+     Data.append('token',token)
+     
+     const url = '/CSE442-542/2023-Spring/cse-442ad/backend/deleteevent.php'
 
-  try {
-    const response = await axios.post('/CSE442-542/2023-Spring/cse-442ad/backend/deleteevent.php', eventToDelete);
-
-    if (response.status === 200) {
+     axios.post(url,Data).then(response=>{
       setEvents((prevEvents) => {
         const prevDateEvents = prevEvents[dateString] || [];
         const updatedEvents = prevDateEvents.filter(
@@ -123,12 +121,10 @@ React.useEffect(() => {
           [dateString]: updatedEvents,
         };
       });
-    } else {
-      alert('Error: ' + response.status + ' ' + response.statusText);
+	  alert(response.data)
     }
-  } catch (error) {
-    alert('Error: ' + error.message);
-  }
+			      )
+     
     }
 
 
