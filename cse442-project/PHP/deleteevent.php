@@ -1,19 +1,19 @@
 <?php
 
-if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
+if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $eventTitle = $_POST["eventTitle"];
     $token = $_POST["token"];
-    echo "Got eventTitle: " . $eventTitle . " and token: " . $token . "<br>";
+    //echo "Got eventTitle: " . $eventTitle . " and token: " . $token . "<br>";
 
     if (strlen(trim($eventTitle)) == 0 or 
         strlen(trim($token)) == 0) {
-            echo "New event requires both username and event title";
+            //echo "New event requires both username and event title";
             die();
     }
 
     else {
-        echo "Didn't fail <br>";
+        //echo "Didn't fail <br>";
         $dbhost = 'oceanus';
         $dbname = 'cse442_2023_spring_team_ad_db';
         $dbuser = 'colegrab';
@@ -21,7 +21,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
 
         $connection = mysqli_connect($dbhost,$dbuser,$dbpass,$dbname) or die("Connection Failed: " . mysqli_connect_error());
 
-        echo "Connected to DB <br>";
+        //echo "Connected to DB <br>";
         //find userID associated with token
         $stmt = mysqli_prepare($connection, "SELECT UserID FROM Users WHERE token=?");
         $first = mysqli_stmt_bind_param($stmt, "s", $token);
@@ -31,8 +31,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
 
         //if user found with that ID
         if ($fetch) {
-            echo "Fetched userID: " . $userID . "<br>";
-            echo "EventTitle: " . $eventTitle . "<br>";
+            //echo "Fetched userID: " . $userID . "<br>";
+            //echo "EventTitle: " . $eventTitle . "<br>";
             //Connect to EVENTS table for two reasons: A. Verify that userID+eventTitle match, and to fill in empty spots
             $eventConn = mysqli_connect($dbhost,$dbuser,$dbpass,$dbname) or die("Connection Failed: " . mysqli_connect_error());
             $eventstmt = mysqli_prepare($eventConn, "SELECT Title FROM Events WHERE UserID = ? AND Title = ?");
@@ -40,11 +40,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
             $second = mysqli_stmt_execute($eventstmt);
             $third = mysqli_stmt_bind_result($eventstmt, $title);
             $found = mysqli_stmt_fetch($eventstmt);
-            echo "Found: " . $found . "<br>";
+            //echo "Found: " . $found . "<br>";
 
             //There is a matching userID and eventTitle pair - therefore can be removed
             if ($found) {
-                echo "Found event with matching userID and eventTitle <br>";
+                //echo "Found event with matching userID and eventTitle <br>";
                 $deleteConn = mysqli_connect($dbhost,$dbuser,$dbpass,$dbname) or die("Connection Failed: " . mysqli_connect_error());
                 $deletestmt = mysqli_prepare($deleteConn, "DELETE FROM Events WHERE UserID = ? AND Title = ?");
                 $first = mysqli_stmt_bind_param($deletestmt, "ss", $userID, $eventTitle);
