@@ -53,7 +53,7 @@ const checkEventTimes = () => {
 
       // Check if the time difference is within 5 minutes (300000 milliseconds)
       // Check if the time difference is within 1 hour (3600000 milliseconds)
-      if (timeDifference <= 3600000 && !popupShown) {
+      if ( timeDifference <= 1800000 && !popupShown) {
         openPopupWindow();
         setPopupShown(true);
           sendEventReminderEmail(token);
@@ -66,7 +66,7 @@ const checkEventTimes = () => {
 //Send email to users
     async function sendEventReminderEmail(token) {
 	let Data  = new FormData();
-	const url = '/CSE442-542/2023-Spring/cse-442ad/backend/emailnotif.php'
+	const url = '/CSE442-542/2023-Spring/cse-442ad/PHP/emailnotif.php'
 	Data.append('usertoken',token)
 	axios.post(url, Data).then(response=>{
             const resp = response.data
@@ -78,7 +78,7 @@ const checkEventTimes = () => {
 React.useEffect(() => {
   const timer = setInterval(() => {
     checkEventTimes();
-  }, 60000); // Check every one min
+  }, 600000); // Check every one min
 
   return () => {
     clearInterval(timer);
@@ -104,7 +104,7 @@ React.useEffect(() => {
      Data.append('eventTitle',eventToDelete.title)
      Data.append('token',token)
      
-     const url = '/CSE442-542/2023-Spring/cse-442ad/backend/deleteevent.php'
+     const url = '/CSE442-542/2023-Spring/cse-442ad/PHP/deleteevent.php'
 
      axios.post(url,Data).then(response=>{
       setEvents((prevEvents) => {
