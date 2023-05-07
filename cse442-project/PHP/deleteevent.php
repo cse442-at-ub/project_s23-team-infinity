@@ -1,6 +1,6 @@
 <?php
 
-if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
+if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $eventTitle = $_POST["eventTitle"];
     $token = $_POST["token"];
